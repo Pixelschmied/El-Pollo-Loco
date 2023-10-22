@@ -1,4 +1,6 @@
 let canvas;
+let canvasHeight = 540;
+let canvasWidth = 960;
 let world;
 
 function init() {

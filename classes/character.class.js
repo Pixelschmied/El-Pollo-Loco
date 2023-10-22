@@ -1,5 +1,7 @@
 class Character extends MoveableObject {
-
+    y = 243
+    width = 610 / 5
+    height = 1200 / 5
     jump() {
         
     }
