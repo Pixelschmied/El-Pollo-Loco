@@ -7,6 +7,7 @@ class World {
     ];
     clouds = [
         new Cloud(),
+        new Cloud()
     ];
     backgroundObjects = [
         new BackgroundObject('img/5_background/layers/air.png'), // Sky Layer
@@ -17,11 +18,18 @@ class World {
 
     canvas;
     ctx;
+    keyboard;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
+    }
+
+    setWorld() {
+        this.character.world = this;
     }
 
     draw() {
