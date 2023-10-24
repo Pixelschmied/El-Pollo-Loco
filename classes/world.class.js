@@ -15,10 +15,10 @@ class World {
         new BackgroundObject('img/5_background/layers/2_second_layer/1.png'), // Second Layer
         new BackgroundObject('img/5_background/layers/1_first_layer/1.png') // First Layer
     ];
-
     canvas;
     ctx;
     keyboard;
+    camera_x = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -35,10 +35,14 @@ class World {
     draw() {
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
 
-        this.addToMap(this.backgroundObjects)
-        this.addToMap(this.clouds)
-        this.addToMap(this.enemies)
-        this.drawToMap(this.character)
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addToMap(this.backgroundObjects);
+        this.addToMap(this.clouds);
+        this.addToMap(this.enemies);
+        this.drawToMap(this.character);
+
+        this.ctx.translate(-this.camera_x, 0)
 
         let self = this;
         requestAnimationFrame(function() {
