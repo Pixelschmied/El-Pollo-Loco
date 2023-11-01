@@ -1,5 +1,6 @@
 class Character extends MoveableObject {
-    y = 243;
+    //y = 243;
+    y = 100;
     width = 610 / 5;
     height = 1200 / 5;
     IMAGES_WALKING = [
@@ -21,7 +22,7 @@ class Character extends MoveableObject {
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
-
+        this.applyGravity();
         this.animate();
     }
 
@@ -43,7 +44,6 @@ class Character extends MoveableObject {
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-
                 this.playAnimation(this.IMAGES_WALKING);
             }
             

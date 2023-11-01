@@ -8,6 +8,22 @@ class MoveableObject {
     currentImage = 0;
     speed = 0.15;
     mirrored = false;
+    speedY = 0;
+    acceleration = 2;
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isJumping) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+            
+        }, 1000 / 25);
+    }
+
+    isJumping() {
+        return this.y < 240;
+    }
 
     loadImage(path) {
         this.img = new Image();
