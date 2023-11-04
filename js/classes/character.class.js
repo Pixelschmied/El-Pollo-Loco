@@ -52,12 +52,17 @@ class Character extends MoveableObject {
                 this.mirrored = true;
                 this.walking_sound.play();
             }
+            if (this.world.keyboard.UP) {
+                this.speedY = 20;
+                console.log("Jumped")
+            }
+
             this.world.camera_x = -this.x + this.width -2;
-        }, 1000 / 60)
+        }, 1000 / 30)
 
 
         setInterval(() => {
-            if (this.isJumping) {
+            if (this.isJumping()) {
                 // Jump Animation
                 this.playAnimation(this.IMAGES_JUMPING)
             } else {

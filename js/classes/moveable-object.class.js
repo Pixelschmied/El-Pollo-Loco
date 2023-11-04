@@ -9,11 +9,11 @@ class MoveableObject {
     speed = 0.15;
     mirrored = false;
     speedY = 0;
-    acceleration = 2;
+    acceleration = 1.8;
 
     applyGravity() {
         setInterval(() => {
-            if (this.isJumping && !this.isFalling) {
+            if (this.isJumping() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
                 console.log("Is Jumping")
@@ -22,15 +22,11 @@ class MoveableObject {
             //    this.y = 0;
             //    console.log("Is Falling!")
             //}
-        }, 1000 / 25);
+        }, 1000 / 60);
     }
 
     isJumping() {
         return this.y < 243;
-    }
-
-    isFalling() {
-        return this.y < 100;
     }
 
     loadImage(path) {
