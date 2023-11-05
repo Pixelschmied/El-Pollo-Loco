@@ -42,7 +42,7 @@ class MoveableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height) 
     }
 
-    drawBorder(ctx) {
+    drawFrame(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '2';
         ctx.strokeStyle = 'blue'
