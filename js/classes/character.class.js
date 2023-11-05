@@ -43,8 +43,6 @@ class Character extends MoveableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.mirrored = false;
                 this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
@@ -52,13 +50,13 @@ class Character extends MoveableObject {
                 this.mirrored = true;
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.UP) {
-                this.speedY = 20;
-                console.log("Jumped")
+            if (this.world.keyboard.UP && !this.isJumping()) {
+                console.log("Jump Function Call")
+                this.jump();
             }
 
             this.world.camera_x = -this.x + this.width -2;
-        }, 1000 / 30)
+        }, 1000 / 60)
 
 
         setInterval(() => {

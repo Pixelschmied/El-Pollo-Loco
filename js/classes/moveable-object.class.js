@@ -18,11 +18,7 @@ class MoveableObject {
                 this.speedY -= this.acceleration;
                 console.log("Is Jumping")
             }
-            //if (this.isFalling) {
-            //    this.y = 0;
-            //    console.log("Is Falling!")
-            //}
-        }, 1000 / 60);
+        }, 1000 / 30);
     }
 
     isJumping() {
@@ -51,12 +47,15 @@ class MoveableObject {
     
 
     moveRight() {
-        console.log("Moving Right")
+        this.x += this.speed;
     }
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60)
+        this.x -= this.speed;
+    }
+    
+    jump() {
+        console.log("Jump Function")
+        this.speedY = 20;
     }
 }
