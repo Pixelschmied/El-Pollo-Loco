@@ -39,11 +39,13 @@ class Character extends MoveableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.mirrored = false;
+                this.moveRight();
                 this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
                 this.mirrored = true;
+                this.moveLeft();
                 this.walking_sound.play();
             }
             if (this.world.keyboard.UP && !this.isJumping()) {
