@@ -27,10 +27,6 @@ class Character extends MoveableObject {
     speed = 4;
     walking_sound = new Audio("audio/character/walking.mp3")
 
-    jump() {
-        
-    }
-
     constructor() {
         super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
         this.loadImages(this.IMAGES_WALKING);
