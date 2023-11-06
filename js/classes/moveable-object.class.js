@@ -1,15 +1,10 @@
-class MoveableObject {
-    x = 120;
-    y = 250;
-    img;
-    height = 150;
-    width = 100;
-    imageCache = {};
-    currentImage = 0;
+class MoveableObject extends DrawableObject {
+    
     speed = 0.15;
     mirrored = false;
     speedY = 0;
     acceleration = 1.8;
+    lastHit = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -24,21 +19,11 @@ class MoveableObject {
         return this.y < 243;
     }
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(arr) {
-        arr.forEach(path => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height) 
+    playAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
     }
 
     drawFrame(ctx) {
@@ -63,20 +48,18 @@ class MoveableObject {
         this.life -= 1;
         if (this.life < 0) {
             this.life = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
     }
 
+    isHurt() {
+        let timeSinceLastHit = new Date().getTime() - this.lastHit;
+        return timeSinceLastHit < 1500;
+    }
     isDead() {
         return this.life == 0;
-    }
-
-    playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
-    
+    }    
 
     moveRight() {
         this.x += this.speed;
