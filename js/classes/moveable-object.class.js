@@ -16,7 +16,6 @@ class MoveableObject {
             if (this.isJumping() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                console.log("Is Jumping")
             }
         }, 1000 / 30);
     }
@@ -43,11 +42,32 @@ class MoveableObject {
     }
 
     drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
         ctx.beginPath();
         ctx.lineWidth = '2';
         ctx.strokeStyle = 'blue'
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
+        }
+
+    }
+
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height
+    }
+
+    Hit() {
+        this.life -= 1;
+        if (this.life < 0) {
+            this.life = 0;
+        }
+    }
+
+    isDead() {
+        return this.life == 0;
     }
 
     playAnimation(images) {
@@ -67,7 +87,6 @@ class MoveableObject {
     }
     
     jump() {
-        console.log("Jump Function")
         this.speedY = 20;
     }
 }

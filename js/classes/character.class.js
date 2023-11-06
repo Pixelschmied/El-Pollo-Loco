@@ -1,6 +1,5 @@
 class Character extends MoveableObject {
-    //y = 243;
-    y = 100;
+    y = 243;
     width = 610 / 5;
     height = 1200 / 5;
     IMAGES_WALKING = [
@@ -23,12 +22,23 @@ class Character extends MoveableObject {
         "img/2_character_pepe/3_jump/J-38.png",
         "img/2_character_pepe/3_jump/J-39.png"
     ]
+    IMAGES_DEAD = [
+        "img/2_character_pepe/5_dead/D-51.png",
+        "img/2_character_pepe/5_dead/D-52.png",
+        "img/2_character_pepe/5_dead/D-53.png",
+        "img/2_character_pepe/5_dead/D-54.png",
+        "img/2_character_pepe/5_dead/D-55.png",
+        "img/2_character_pepe/5_dead/D-56.png",
+        "img/2_character_pepe/5_dead/D-57.png"
+    ]
     world;
     speed = 4;
     walking_sound = new Audio("audio/character/walking.mp3")
+    life = 100;
 
     constructor() {
         super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
+        this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.applyGravity();
@@ -49,7 +59,6 @@ class Character extends MoveableObject {
                 this.walking_sound.play();
             }
             if (this.world.keyboard.UP && !this.isJumping()) {
-                console.log("Jump Function Call")
                 this.jump();
             }
 
@@ -58,7 +67,9 @@ class Character extends MoveableObject {
 
 
         setInterval(() => {
-            if (this.isJumping()) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isJumping()) {
                 // Jump Animation
                 this.playAnimation(this.IMAGES_JUMPING)
             } else {
