@@ -43,17 +43,4 @@ class StatusBar extends DrawableObject {
         }
     }
 
-    animate() {
-        setInterval(() => {
-            this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-            }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-            }
-
-            this.world.camera_x = -this.x + this.width -2;
-        }, 1000 / 60)
-    }
 }

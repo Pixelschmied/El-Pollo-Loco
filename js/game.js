@@ -11,7 +11,7 @@ function init() {
 
 
 window.addEventListener("keydown", (e) => {
-    //console.log(e.key) to find key
+    console.log(e.keyCode)
     if (e.key == "ArrowLeft") {
         keyboard.LEFT = true;
     }
@@ -24,8 +24,20 @@ window.addEventListener("keydown", (e) => {
     if (e.key == "ArrowDown") {
         keyboard.DOWN = true;
     }
-    if (e.key == "Space") {
-        keyboard.SPACE = true;
+    if (e.key == "a") {
+        keyboard.LEFT = true;
+    }
+    if (e.key == "d") {
+        keyboard.RIGHT = true;
+    }
+    if (e.key == "w") {
+        keyboard.UP = true;
+    }
+    if (e.key == "s") {
+        keyboard.DOWN = true;
+    }
+    if (e.key == " ") {
+        keyboard.UP = true;
     }
     if (e.key == "e") {
         keyboard.E = true;
@@ -45,8 +57,20 @@ window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowDown") {
         keyboard.DOWN = false;
     }
-    if (e.key == "Space") {
-        keyboard.SPACE = false;
+    if (e.key == "a") {
+        keyboard.LEFT = false;
+    }
+    if (e.key == "d") {
+        keyboard.RIGHT = false;
+    }
+    if (e.key == "w") {
+        keyboard.UP = false;
+    }
+    if (e.key == "s") {
+        keyboard.DOWN = false;
+    }
+    if (e.key == " ") {
+        keyboard.UP = false;
     }
     if (e.key == "e") {
         keyboard.E = false;

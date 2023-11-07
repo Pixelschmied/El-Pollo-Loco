@@ -64,7 +64,7 @@ class Character extends MoveableObject {
                 this.moveLeft();
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.UP && !this.isJumping()) {
+            if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
             }
 
@@ -77,7 +77,7 @@ class Character extends MoveableObject {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isJumping()) {
+            } else if (this.isAboveGround()) {
                 // Jump Animation
                 this.playAnimation(this.IMAGES_JUMPING)
             } else {
