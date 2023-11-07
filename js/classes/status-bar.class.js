@@ -15,13 +15,15 @@ class StatusBar extends DrawableObject {
         super();
         this.loadImages(this.IMAGES);
         this.setPercentage(100);
+        this.width = 595 / 3;
+        this.height = 158 / 3;
     }
 
     setPercentage(percentage) {
         this.percentage = percentage
         let path = this.IMAGES[this.resolveImageIndex()];
-        this.x = 100;
-        this.y = 100;
+        this.x = 30;
+        this.y = 0;
         this.img = this.imageCache[path]
     }
 
@@ -39,5 +41,19 @@ class StatusBar extends DrawableObject {
         } else {
             return 0;
         }
+    }
+
+    animate() {
+        setInterval(() => {
+            this.walking_sound.pause();
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.moveRight();
+            }
+            if (this.world.keyboard.LEFT && this.x > 0) {
+                this.moveLeft();
+            }
+
+            this.world.camera_x = -this.x + this.width -2;
+        }, 1000 / 60)
     }
 }
