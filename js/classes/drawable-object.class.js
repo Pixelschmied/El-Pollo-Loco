@@ -17,6 +17,7 @@ class DrawableObject {
         arr.forEach(path => {
             let img = new Image();
             img.src = path;
+            img.style = 'transform: scaleX(-1)';
             this.imageCache[path] = img;
         });
     }
