@@ -19,7 +19,7 @@ class ThrowableObject extends MoveableObject {
     }
 
     throw() {
-        this.speedY = 10;
+        this.speedY = 25;
 
         setInterval(() => {
             this.x += 7.5;
