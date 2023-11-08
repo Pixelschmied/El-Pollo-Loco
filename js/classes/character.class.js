@@ -70,6 +70,8 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_LONG_IDLE);
+        this.loadImages(this.IMAGES_IDLE);
         this.applyGravity();
         this.animate();
     }
@@ -77,16 +79,13 @@ class Character extends MoveableObject {
     jump() {
         if (!this.isJumping) {
             this.isJumping = true;
-            this.jumpStartTime = Date.now(); // Startzeit des Sprungs festlegen
-            this.speedY = 22; // Geschwindigkeit nach oben setzen, um den Sprung zu starten
-    
-            // Optional: Setzen Sie hier das erste Bild der Sprunganimation
-            this.setImage(this.IMAGES_JUMPING[0]);
+            this.jumpStartTime = Date.now(); // Jump-Timer start
+            this.speedY = 22; // set Y-speed for jump
         }
     }
 
-    updateJumpAnimation() {
-        const jumpDuration = 1000; // Gesamtdauer des Sprungs in Millisekunden
+    jumpAnimation() {
+        const jumpDuration = 1000; // total jump animation duration in ms
         const elapsedTime = Date.now() - this.jumpStartTime;
         const phase = elapsedTime / jumpDuration;
     
@@ -120,6 +119,9 @@ class Character extends MoveableObject {
     animate() {
         setInterval(() => {
             //this.walking_sound.pause();
+            if (!this.isJumping && !this.isMoving()) {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.mirrored = false;
                 this.moveRight();
@@ -134,10 +136,10 @@ class Character extends MoveableObject {
                 this.jump();
             }
             if (this.isJumping) {
-                this.updateJumpAnimation();
+                this.jumpAnimation();
             }
             this.world.camera_x = -this.x + this.width -2;
-        }, 1000 / 60);
+        }, 1000 / 7);
 
         setInterval(() => {
             if (this.isDead()) {

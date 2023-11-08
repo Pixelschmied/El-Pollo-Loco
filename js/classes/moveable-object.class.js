@@ -36,6 +36,14 @@ class MoveableObject extends DrawableObject {
         }
       }
 
+    isMoving() {
+        return (world.keyboard.LEFT ||
+                world.keyboard.RIGHT ||
+                world.keyboard.UP ||
+                world.keyboard.DOWN ||
+                world.keyboard.E)
+    }
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
