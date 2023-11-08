@@ -6,22 +6,35 @@ class MoveableObject extends DrawableObject {
     acceleration = 1.8;
     lastHit = 0;
 
+    //applyGravity() {
+    //    setInterval(() => {
+    //        if (this.isAboveGround() || this.speedY > 0) {
+    //            this.y -= this.speedY;
+    //            this.speedY -= this.acceleration;
+    //        }
+    //    }, 1000 / 25);
+    //}
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            } else {
+                // Wenn der Charakter den Boden erreicht, setzen Sie die Geschwindigkeit auf 0 und korrigieren Sie die Y-Position
+                this.speedY = 0;
+                this.y = 240; // Stellen Sie sicher, dass dies die korrekte Bodenhöhe ist
             }
         }, 1000 / 30);
     }
 
     isAboveGround() {
         if (this instanceof ThrowableObject) {
-            return true;
+          return true;
         } else {
-            return this.y < 243;
+          return this.y < 240;
         }
-    }
+      }
 
     playAnimation(images) {
         let i = this.currentImage % images.length;
