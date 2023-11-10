@@ -5,8 +5,8 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
-    canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
+    canvas = document.getElementById("canvas"); //Saves HTML ID in "canvas"
+    world = new World(canvas, keyboard); //Create new "World" Obj. 
 }
 
 

@@ -37,11 +37,11 @@ class MoveableObject extends DrawableObject {
       }
 
     isMoving() {
-        return (world.keyboard.LEFT ||
-                world.keyboard.RIGHT ||
-                world.keyboard.UP ||
-                world.keyboard.DOWN ||
-                world.keyboard.E)
+        return (this.world.keyboard.LEFT ||
+                this.world.keyboard.RIGHT ||
+                this.world.keyboard.UP ||
+                this.world.keyboard.DOWN ||
+                this.world.keyboard.E)
     }
 
     playAnimation(images) {
