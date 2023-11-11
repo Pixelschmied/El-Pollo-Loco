@@ -21,9 +21,8 @@ class MoveableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } else {
-                // Wenn der Charakter den Boden erreicht, setzen Sie die Geschwindigkeit auf 0 und korrigieren Sie die Y-Position
                 this.speedY = 0;
-                this.y = 240; // Stellen Sie sicher, dass dies die korrekte Bodenhöhe ist
+                this.y = 240;
             }
         }, 1000 / 30);
     }
