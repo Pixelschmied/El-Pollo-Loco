@@ -98,7 +98,7 @@ class Character extends MoveableObject {
 
     idleAnimation() {
         setInterval(() => {
-            if (!this.isJumping && !this.isMoving()) {
+            if (!this.isJumping && !this.isMoving() && !this.isHurt() && !this.isDead()) {
                 this.playAnimation(this.IMAGES_IDLE);
                 console.log("Idle")
             }
@@ -116,19 +116,23 @@ class Character extends MoveableObject {
 
     walkingAnimation() {
         setInterval(() => {
+            // MOVEMENT
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.playAnimation(this.IMAGES_WALKING);
                 this.mirrored = false;
                 this.moveRight();
-                console.log("Walking Right")
-                //this.walking_sound.play(); // TODO: Switch Sounds on
+                //this.walking_sound.play(); // TODO: Switch Sounds on (Maybe Switch to moveRight() Function?!)
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.playAnimation(this.IMAGES_WALKING);
                 this.mirrored = true;
                 this.moveLeft();
-                console.log("Walking Left")
-                //this.walking_sound.play(); // TODO: Switch Sounds on
+                //this.walking_sound.play(); // TODO: Switch Sounds on (Maybe Switch to moveLeft() Function?!)
+            }
+            // ANIMATIONS
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isHurt() && !this.isDead() && !this.isJumping) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+            if (this.world.keyboard.LEFT && this.x > 0  && !this.isHurt() && !this.isDead() && !this.isJumping) {
+                this.playAnimation(this.IMAGES_WALKING);
             }
         }, 1000 / 20);
     }
@@ -138,7 +142,7 @@ class Character extends MoveableObject {
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
             }
-            if (this.isJumping) {
+            if (this.isJumping && !this.isHurt() && !this.isDead()) {
                 this.jumpAnimationTimer();
                 console.log("Jumping")
             }
@@ -150,7 +154,7 @@ class Character extends MoveableObject {
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
-        }, 1000 / 12);
+        }, 1000 / 5);
     }
 
     deadAnimation() { // TODO: Setup!
@@ -158,7 +162,7 @@ class Character extends MoveableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             }
-        }, 1000 / 10);
+        }, 1000 / 3);
     }
 
     jump() {
