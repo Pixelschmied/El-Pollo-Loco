@@ -12,11 +12,16 @@ class MoveableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            } else {
+            } else if(!this.died) {
                 this.speedY = 0;
                 this.y = 240;
             }
         }, 1000 / 30);
+    }
+
+    falling() {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
     }
 
     isAboveGround() {

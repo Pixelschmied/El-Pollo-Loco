@@ -64,6 +64,7 @@ class Character extends MoveableObject {
     speed = 10;
     //walking_sound = new Audio("audio/character/walking.mp3");
     life = 100;
+    died = false;
     
 
     constructor() {
@@ -117,12 +118,12 @@ class Character extends MoveableObject {
     walkingAnimation() {
         setInterval(() => {
             // MOVEMENT
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
                 this.mirrored = false;
                 this.moveRight();
                 //this.walking_sound.play(); // TODO: Switch Sounds on (Maybe Switch to moveRight() Function?!)
             }
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
                 this.mirrored = true;
                 this.moveLeft();
                 //this.walking_sound.play(); // TODO: Switch Sounds on (Maybe Switch to moveLeft() Function?!)
@@ -139,7 +140,7 @@ class Character extends MoveableObject {
 
     jumpAnimation() {
         setInterval(() => {
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
+            if (this.world.keyboard.UP && !this.isAboveGround() && !this.died) {
                 this.jump();
             }
             if (this.isJumping && !this.isHurt() && !this.isDead()) {
@@ -151,7 +152,7 @@ class Character extends MoveableObject {
 
     hurtAnimation() { // TODO: Setup!
         setInterval(() => {
-            if (this.isHurt()) {
+            if (this.isHurt() && !this.isDead()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
         }, 1000 / 5);
@@ -161,6 +162,11 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                if (!this.died) {
+                    this.speedY = 22;
+                    this.died = true;
+                }
+                this.falling();
             }
         }, 1000 / 3);
     }

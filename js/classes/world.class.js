@@ -31,7 +31,7 @@ class World {
     checkThrowableObjects() {
         if (this.keyboard.E && this.throwableObjects.length < 1) {
             let mirrored = this.character.mirrored;
-            let bottle = new ThrowableObject(this.character.x + (this.character.width / 2), this.character.y + (this.character.height / 2), mirrored)
+            let bottle = new ThrowableObject(this.character.x + (this.character.width / 2), this.character.y + (this.character.height / 2), mirrored, this.throwableObjects)
             this.throwableObjects.push(bottle);
         }
     }
