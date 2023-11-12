@@ -21,6 +21,13 @@ class DrawableObject {
         });
     }
 
+    setImage(imagePath) {
+        const cachedImage = this.imageCache[imagePath];
+        if (cachedImage) {
+            this.img = cachedImage;
+        }
+    }
+
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height) 
     }
@@ -35,7 +42,7 @@ class DrawableObject {
                 rect = { x: object.x + 2, y: object.y + 2, width: object.width - 3, height: object.height - 5 };
                 break;
             case Endboss:
-                rect = { x: object.x + 13, y: object.y + 40, width: object.width - 20, height: object.height - 45};
+                rect = { x: object.x + 40, y: object.y + 95, width: object.width - 80, height: object.height - 110};
                 break;
             case ThrowableObject:
                 rect = { x: object.x + 10, y: object.y + 10, width: object.width - 20, height: object.height - 20 };
@@ -46,7 +53,7 @@ class DrawableObject {
         return rect;
     }
 
-    drawFrame(ctx) {
+    drawFrame(ctx) { // TODO: Frame Function (delete if not needed)
         let frame = this.getObjectCollisionFrame(this);
         if (frame) {
             ctx.beginPath();
@@ -56,31 +63,4 @@ class DrawableObject {
             ctx.stroke();
         }
     }
-
-    
-
-
-
-    //drawFrame(ctx) {
-    //    if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject) {
-    //    ctx.beginPath();
-    //    ctx.lineWidth = '2';
-    //    ctx.strokeStyle = 'blue'
-    //    ctx.rect(getObjectFrame());
-    //    ctx.stroke();
-    //    }
-    //}
-//
-    //getObjectFrame() {
-    //    switch (InstanceOf) {
-    //        case this instanceof Character:
-    //            return this.x + 20, this.y + 100, this.width - 55, this.height -110
-    //        case this instanceof Chicken:
-    //            return this.x + 20, this.y + 100, this.width - 55, this.height -110
-    //    
-    //        default:
-    //            break;
-    //    }
-    //
-    //}
 }

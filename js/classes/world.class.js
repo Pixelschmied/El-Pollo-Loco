@@ -49,7 +49,7 @@ class World {
         this.throwableObjects.forEach((throwableObject) => {
             this.level.enemies.forEach((enemy) => {
                 if (throwableObject.isColliding(enemy)) {
-                    this.throwableObjects.pop();
+                    throwableObject.bottleBroken = true;
                 }
             });
         });
@@ -86,7 +86,7 @@ class World {
         }
 
         mo.draw(this.ctx)
-        mo.drawFrame(this.ctx)
+        mo.drawFrame(this.ctx) // TODO: Frame Function (delete if not needed)
 
         if (mo.mirrored) {
             this.flipImageBack(mo);

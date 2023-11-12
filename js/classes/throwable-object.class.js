@@ -14,7 +14,7 @@ class ThrowableObject extends MoveableObject {
         "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
         "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png"
     ]
-    broken = false;
+    bottleBroken = false;
     breakStartTime = 0;
 
     constructor(x, y, mirrored, throwableObjects) {
@@ -33,59 +33,153 @@ class ThrowableObject extends MoveableObject {
     }
 
     throw() {
-        if (this.mirrored && !this.broken) {
+        if (this.mirrored && !this.bottleBroken) {
             this.speedY = 25;
             setInterval(() => {
-                this.x -= 6;
-                this.removeThrowable();
+                if (!this.bottleBroken) {
+                    this.x += 6;
+                }
+                this.updateThrowable();
             }, 1000 / 60);
         }
-        if (!this.mirrored && !this.broken) {
+        if (!this.mirrored && !this.bottleBroken) {
             this.speedY = 25;
             setInterval(() => {
-                this.x += 6;
-                this.removeThrowable();
+                if (!this.bottleBroken) {
+                    this.x += 6;
+                }
+                this.updateThrowable();
             }, 1000 / 60);
         }
     }
 
     animate() {
-        this.rotateAnimation();
-        this.splashAnimation();
+        //this.rotateAnimation();
+        this.breakAnimation();
+        this.throwAnimation();
+        //this.splashAnimation();
     }
 
-    rotateAnimation() {
-        if (!this.broken) {
-            setInterval(() => {
+    throwAnimation() {
+        setInterval(() => {
+            if (!this.bottleBroken) {
                 this.playAnimation(this.IMAGES_THROWN);
+            }
         }, 1000 / 10);
-        }
     }
 
-    splashAnimation() {
-        if (this.broken) {
-            setInterval(() => {
-                this.playAnimation(this.IMAGES_SPLASH);
-            }, 1000 / 10); 
-        }
+    breakAnimation() {
+        setInterval(() => {
+            if (this.bottleBroken) {
+                this.breakBottle();
+            }
+        }, 1000 / 3);
     }
 
-    removeThrowable() {
-        if (this.throwableObjects[0] && this.throwableObjects[0].y > 450) {
+    breakBottle() {
+        if (!this.breakStartTime) {
+            this.breakStartTime = Date.now();
+        }
+
+        const breakDuration = 500;
+        const elapsedTime = Date.now() - this.breakStartTime;
+        const phase = elapsedTime / breakDuration;
+
+        if (phase < 1/6) {
+            this.setImage(this.IMAGES_SPLASH[0]);
+        } else if (phase < 2/6) {
+            this.setImage(this.IMAGES_SPLASH[1]);
+        } else if (phase < 3/6) {
+            this.setImage(this.IMAGES_SPLASH[2]);
+        } else if (phase < 4/6) {
+            this.setImage(this.IMAGES_SPLASH[3]);
+        } else if (phase < 5/6) {
+            this.setImage(this.IMAGES_SPLASH[4]);
+        } else if (phase <= 1) {
+            this.setImage(this.IMAGES_SPLASH[5]);
+        } else {
+            this.bottleBroken = false;
+            this.throwableObjects.pop();
+            this.breakStartTime = null;
+        }
+    }
+    updateThrowable() {
+        if (this.bottleBroken || this.throwableObjects[0] && this.throwableObjects[0].y > 418) {
+            this.bottleBroken = true;
             this.breakBottle();
+            this.speedY = 0;
             //console.log("Bottle removed")
             //this.throwableObjects.pop();
         }
     }
-
-    breakBottle() {
-        this.broken = true;
-        this.breakStartTime = Date.now();
-        const breakDuration = 1000;
-        const elapsedTime = Date.now() - this.breakStartTime;
-        if (elapsedTime > breakDuration) {
-        }
-        console.log("Bottle broke!")
-    }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    rotateAnimation() {
+//        setInterval(() => {
+//            if (!this.bottleBroken) {
+//                this.playAnimation(this.IMAGES_THROWN);
+//            }
+//        }, 1000 / 10)   
+//    }
+//    
+//
+//    //splashAnimation() {
+//    //    setInterval(() => {
+//    //        if (this.bottleBroken) {
+//    //        
+//    //        }
+//    //    }, 1000 / 3); 
+//    //}
+//
+//    updateThrowable() {
+//        if (this.throwableObjects[0] && this.throwableObjects[0].y > 450) {
+//            this.bottleBroken = true;
+//            this.breakBottle();
+//            this.speedY = 0;
+//            //console.log("Bottle removed")
+//            //this.throwableObjects.pop();
+//        }
+//    }
+//
+//    breakBottle() {
+//        this.breakStartTime = Date.now();
+//        const breakDuration = 2000;
+//        const elapsedTime = Date.now() - this.breakStartTime;
+//        const phase = elapsedTime / breakDuration;
+//        console.log(phase)
+//        if (phase < 1/6) {
+//            this.setImage(this.IMAGES_SPLASH[0]);
+//        } else if (phase < 2/6) {
+//            this.setImage(this.IMAGES_SPLASH[1]);
+//        } else if (phase < 3/6) {
+//            this.setImage(this.IMAGES_SPLASH[2]);
+//        } else if (phase < 4/6) {
+//            this.setImage(this.IMAGES_SPLASH[3]);
+//        } else if (phase < 4/6) {
+//            this.setImage(this.IMAGES_SPLASH[3]);
+//        } else if (phase <= 1) {
+//            this.setImage(this.IMAGES_SPLASH[3]);
+//        } else {
+//            this.bottleBroken = false;
+//            this.throwableObjects.pop();
+//        }
+//    }
+//
+//}
