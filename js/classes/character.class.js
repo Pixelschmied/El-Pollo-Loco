@@ -58,6 +58,7 @@ class Character extends MoveableObject {
     ]
     jumpStartTime = 0;
     isJumping = false;
+    isIdle = false;
     idleStartTime = 0;
     world;
     speed = 4;
@@ -89,10 +90,8 @@ class Character extends MoveableObject {
 
     animate() {
         setInterval(() => {
+            // KEY INPUTS
             //this.walking_sound.pause();
-            if (!this.isJumping && !this.isMoving()) {
-                this.idleAnimation();
-            }
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.mirrored = false;
                 this.moveRight();
@@ -113,21 +112,23 @@ class Character extends MoveableObject {
         }, 1000 / 30);
 
         setInterval(() => {
+            // ANIMATIONS
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                // Jump Animation
-                //this.playAnimation(this.IMAGES_JUMPING)
+            } else if (!this.isJumping && !this.isMoving()) {
+                this.playAnimation(this.IMAGES_IDLE);   
             } else {
                 // Walk Animation
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
-        },1000 / 30)
+        },1000 / 10)
     }
+
+
 
     jump() {
         if (!this.isJumping) {
@@ -137,11 +138,11 @@ class Character extends MoveableObject {
         }
     }
 
+
     jumpAnimation() {
         const jumpDuration = 1000; // total jump animation duration in ms
         const elapsedTime = Date.now() - this.jumpStartTime;
         const phase = elapsedTime / jumpDuration;
-    
         if (phase < 1/5) {
             this.setImage(this.IMAGES_JUMPING[0]);
         } else if (phase < 2/5) {
@@ -156,34 +157,6 @@ class Character extends MoveableObject {
         } else {
             this.isJumping = false; // Sprung ist vorbei
             this.setImage(this.IMAGES_IDLE[0]); // Zurück zur Standbildanimation
-        }
-    }
-
-    idleAnimation() {
-        const idleDuration = 1000; // total jump animation duration in ms
-        const elapsedTime = Date.now() - this.idleStartTime;
-        const phase = elapsedTime / idleDuration;
-    
-        if (phase < 1/10) {
-            this.setImage(this.IMAGES_IDLE[0]);
-        } else if (phase < 2/10) {
-            this.setImage(this.IMAGES_IDLE[1]);
-        } else if (phase < 3/10) {
-            this.setImage(this.IMAGES_IDLE[2]);
-        } else if (phase < 4/10) {
-            this.setImage(this.IMAGES_IDLE[3]);
-        } else if (phase < 5/10) {
-            this.setImage(this.IMAGES_IDLE[4]);
-        } else if (phase < 6/10) {
-            this.setImage(this.IMAGES_IDLE[5]);
-        } else if (phase < 7/10) {
-            this.setImage(this.IMAGES_IDLE[6]);
-        } else if (phase < 8/10) {
-            this.setImage(this.IMAGES_IDLE[7]);
-        } else if (phase < 9/10) {
-            this.setImage(this.IMAGES_IDLE[8]);
-        } else if (phase <= 1) {
-            this.setImage(this.IMAGES_IDLE[10]);
         }
     }
 }
