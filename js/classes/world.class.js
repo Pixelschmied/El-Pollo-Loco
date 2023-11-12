@@ -7,11 +7,6 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     throwableObjects = [];
-    lastFrameTime = 0; // Zeitpunkt des letzten Frames
-    fpsArray = []; // Speichert die FPS-Werte für die Berechnung des Durchschnitts
-    lastFpsUpdate = 0; // Zeitpunkt der letzten FPS-Aktualisierung
-    fpsUpdateInterval = 500; // Intervall in Millisekunden für die Aktualisierung der FPS-Anzeige
-    averageFps = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -34,7 +29,7 @@ class World {
     }
 
     checkThrowableObjects() {
-        if (this.keyboard.E) {
+        if (this.keyboard.E && this.throwableObjects.length < 1) {
             let mirrored = this.character.mirrored;
             let bottle = new ThrowableObject(this.character.x + (this.character.width / 2), this.character.y + (this.character.height / 2), mirrored)
             this.throwableObjects.push(bottle);
@@ -42,34 +37,40 @@ class World {
     }
 
     checkCollisions() {
+        // Character Collision with Enemies
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.life);
+                console.log("Character Life: ", this.character.life);
+            }
+        });
+        // Throwable Collision with Enemies
+        this.throwableObjects.forEach((throwableObject) => {
             this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                        this.character.Hit();
-                        this.statusBar.setPercentage(this.character.life);
-                        console.log("Character Life: ", this.character.life);
+                if (throwableObject.isColliding(enemy)) {
+                    this.throwableObjects.pop();
                 }
-            })
+            });
+        });
     }
 
     draw() {
-        this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height); // Leert den Canvas
+        this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
 
-        this.ctx.translate(this.camera_x, 0); // translate(x, y) <- Verschiebt die Kamera auf 0,0
+        this.ctx.translate(this.camera_x, 0);
         // Dynamic Objects
-        this.addToMap(this.level.backgroundObjects);    // Zeichnet die Hintergrundbilder
-        this.addToMap(this.level.clouds);               // Zeichnet die Wolkenbilder
-        this.addToMap(this.level.enemies);              // Zeichnet die Gegner
-        this.addToMap(this.throwableObjects);           // Zeichnet die Werfbaren Gegenstände (Flaschen z.b.)
-        this.drawToMap(this.character);                 // Zeichnet den Character
+        this.addToMap(this.level.backgroundObjects);
+        this.addToMap(this.level.clouds);
+        this.addToMap(this.level.enemies);
+        this.addToMap(this.throwableObjects);
+        this.drawToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0);
 
-        this.ctx.translate(-this.camera_x, 0);          // Kamera wird zurück
         // Static Objects
         this.drawToMap(this.statusBar);
-
         let self = this;
-        requestAnimationFrame(function() {
-            self.draw();
-        });
+        requestAnimationFrame(function() {self.draw();});
     }
     
 

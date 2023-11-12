@@ -32,13 +32,13 @@ class DrawableObject {
                 rect = { x: object.x + 20, y: object.y + 100, width: object.width - 55, height: object.height - 110};
                 break;
             case Chicken:
-                rect = { x: object.x, y: object.y, width: object.width, height: object.height };
+                rect = { x: object.x + 2, y: object.y + 2, width: object.width - 3, height: object.height - 5 };
                 break;
             case Endboss:
-                rect = { x: object.x, y: object.y, width: object.width, height: object.height };
+                rect = { x: object.x + 13, y: object.y + 40, width: object.width - 20, height: object.height - 45};
                 break;
             case ThrowableObject:
-                rect = { x: object.x, y: object.y, width: object.width, height: object.height };
+                rect = { x: object.x + 10, y: object.y + 10, width: object.width - 20, height: object.height - 20 };
                 break;
             default:
                 rect = null;

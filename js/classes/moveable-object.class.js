@@ -6,14 +6,6 @@ class MoveableObject extends DrawableObject {
     acceleration = 1.8;
     lastHit = 0;
 
-    //applyGravity() {
-    //    setInterval(() => {
-    //        if (this.isAboveGround() || this.speedY > 0) {
-    //            this.y -= this.speedY;
-    //            this.speedY -= this.acceleration;
-    //        }
-    //    }, 1000 / 25);
-    //}
 
     applyGravity() {
         setInterval(() => {
@@ -50,14 +42,24 @@ class MoveableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height
-    }
+    //isColliding(mo) {
+    //    return this.x + this.width > mo.x &&
+    //        this.y + this.height > mo.y &&
+    //        this.x < mo.x &&
+    //        this.y < mo.y + mo.height
+    //}
 
-    Hit() {
+    isColliding(mo) {
+        let thisFrame = this.getObjectCollisionFrame(this);
+        let otherFrame = mo.getObjectCollisionFrame(mo);
+    
+        return thisFrame.x < otherFrame.x + otherFrame.width &&
+               thisFrame.x + thisFrame.width > otherFrame.x &&
+               thisFrame.y < otherFrame.y + otherFrame.height &&
+               thisFrame.y + thisFrame.height > otherFrame.y;
+    }    
+
+    hit() {
         this.life -= 1;
         if (this.life < 0) {
             this.life = 0;
@@ -85,4 +87,6 @@ class MoveableObject extends DrawableObject {
     jump() {
         this.speedY = 20;
     }
+
+    
 }
