@@ -89,10 +89,11 @@ class Character extends MoveableObject {
     
     animate() {
         this.idleAnimation();
-        this.animateWalking();
-        this.animateHurt();
-        this.animateDead();
-        // ... weitere Animationsmethoden ...
+        //this.longIdleAnimation(); // WIP
+        this.walkingAnimation();
+        this.jumpAnimation();
+        this.hurtAnimation();
+        this.deadAnimation();
     }
 
     idleAnimation() {
@@ -100,43 +101,66 @@ class Character extends MoveableObject {
             if (!this.isJumping && !this.isMoving()) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-        }, 1000 / 6); // Beispielintervall für Idle-Animation
+        }, 1000 / 5);
     }
 
-    animateWalking() {
+    //longIdleAnimation() {
+    //    setInterval(() => {
+    //        if (!this.isJumping && !this.isMoving()) {
+    //            this.playAnimation(this.IMAGES_IDLE);
+    //        }
+    //    }, 1000 / 6);
+    //}
+
+
+    walkingAnimation() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.mirrored = false;
                 this.moveRight();
-                //this.walking_sound.play();
+                //this.walking_sound.play(); // TODO: Switch Sounds on
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.mirrored = true;
                 this.moveLeft();
-                //this.walking_sound.play();
+                //this.walking_sound.play(); // TODO: Switch Sounds on
             }
-        }, 1000 / 20); // Beispielintervall für Walking-Animation
+        }, 1000 / 20);
     }
 
-    animateHurt() {
+    jumpAnimation() {
+        console.log("jump")
+        setInterval(() => {
+            if (this.world.keyboard.UP && !this.isAboveGround()) {
+                this.jump();
+                console.log("jump()")
+            }
+            if (this.isJumping) {
+                this.jumpAnimation();
+                console.log("jumpAnimation()")
+            }
+        }, 1000 / 60);
+    }
+
+    hurtAnimation() { // TODO: Setup!
         setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
-        }, 1000 / 12); // Beispielintervall für Hurt-Animation
+        }, 1000 / 12);
     }
 
-    animateDead() {
+    deadAnimation() { // TODO: Setup!
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             }
-        }, 1000 / 10); // Beispielintervall für Dead-Animation
+        }, 1000 / 10);
     }
 
-    // ... weitere Animationsmethoden ...
+ 
 
     //animate() {
     //    setInterval(() => {
