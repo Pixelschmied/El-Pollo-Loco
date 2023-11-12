@@ -100,6 +100,7 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (!this.isJumping && !this.isMoving()) {
                 this.playAnimation(this.IMAGES_IDLE);
+                console.log("Idle")
             }
         }, 1000 / 5);
     }
@@ -119,27 +120,27 @@ class Character extends MoveableObject {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.mirrored = false;
                 this.moveRight();
+                console.log("Walking Right")
                 //this.walking_sound.play(); // TODO: Switch Sounds on
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.mirrored = true;
                 this.moveLeft();
+                console.log("Walking Left")
                 //this.walking_sound.play(); // TODO: Switch Sounds on
             }
         }, 1000 / 20);
     }
 
     jumpAnimation() {
-        console.log("jump")
         setInterval(() => {
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
-                console.log("jump()")
             }
             if (this.isJumping) {
-                this.jumpAnimation();
-                console.log("jumpAnimation()")
+                this.jumpAnimationTimer();
+                console.log("Jumping")
             }
         }, 1000 / 60);
     }
@@ -160,50 +161,6 @@ class Character extends MoveableObject {
         }, 1000 / 10);
     }
 
- 
-
-    //animate() {
-    //    setInterval(() => {
-    //        // KEY INPUTS
-    //        //this.walking_sound.pause();
-    //        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-    //            this.mirrored = false;
-    //            this.moveRight();
-    //            //this.walking_sound.play();
-    //        }
-    //        if (this.world.keyboard.LEFT && this.x > 0) {
-    //            this.mirrored = true;
-    //            this.moveLeft();
-    //            //this.walking_sound.play();
-    //        }
-    //        if (this.world.keyboard.UP && !this.isAboveGround()) {
-    //            this.jump();
-    //        }
-    //        if (this.isJumping) {
-    //            this.jumpAnimation();
-    //        }
-    //        this.world.camera_x = -this.x + this.width -2;
-    //    }, 1000 / 30);
-//
-    //    setInterval(() => {
-    //        // ANIMATIONS
-    //        if (this.isDead()) {
-    //            this.playAnimation(this.IMAGES_DEAD);
-    //        } else if (this.isHurt()) {
-    //            this.playAnimation(this.IMAGES_HURT);
-    //        } else if (!this.isJumping && !this.isMoving()) {
-    //            this.playAnimation(this.IMAGES_IDLE);   
-    //        } else {
-    //            // Walk Animation
-    //            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-    //                this.playAnimation(this.IMAGES_WALKING);
-    //            }
-    //        }
-    //    },1000 / 10)
-    //}
-
-
-
     jump() {
         if (!this.isJumping) {
             this.isJumping = true;
@@ -213,7 +170,7 @@ class Character extends MoveableObject {
     }
 
 
-    jumpAnimation() {
+    jumpAnimationTimer() {
         const jumpDuration = 1000; // total jump animation duration in ms
         const elapsedTime = Date.now() - this.jumpStartTime;
         const phase = elapsedTime / jumpDuration;

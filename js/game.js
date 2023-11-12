@@ -21,9 +21,6 @@ window.addEventListener("keydown", (e) => {
     if (e.key == "ArrowUp") {
         keyboard.UP = true;
     }
-    if (e.key == "ArrowDown") {
-        keyboard.DOWN = true;
-    }
     if (e.key == "a") {
         keyboard.LEFT = true;
     }
@@ -32,9 +29,6 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.key == "w") {
         keyboard.UP = true;
-    }
-    if (e.key == "s") {
-        keyboard.DOWN = true;
     }
     if (e.key == " ") {
         keyboard.UP = true;
@@ -54,9 +48,6 @@ window.addEventListener("keyup", (e) => {
     if (e.key == "ArrowUp") {
         keyboard.UP = false;
     }
-    if (e.key == "ArrowDown") {
-        keyboard.DOWN = false;
-    }
     if (e.key == "a") {
         keyboard.LEFT = false;
     }
@@ -65,9 +56,6 @@ window.addEventListener("keyup", (e) => {
     }
     if (e.key == "w") {
         keyboard.UP = false;
-    }
-    if (e.key == "s") {
-        keyboard.DOWN = false;
     }
     if (e.key == " ") {
         keyboard.UP = false;
