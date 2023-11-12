@@ -41,14 +41,13 @@ class DrawableObject {
                 rect = { x: object.x, y: object.y, width: object.width, height: object.height };
                 break;
             default:
-                // Standardverhalten oder Fehlerbehandlung
                 rect = null;
         }
         return rect;
     }
 
     drawFrame(ctx) {
-        let frame = getObjectCollisionFrame(this);
+        let frame = this.getObjectCollisionFrame(this);
         if (frame) {
             ctx.beginPath();
             ctx.lineWidth = '2';
