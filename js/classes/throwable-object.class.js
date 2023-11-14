@@ -54,10 +54,8 @@ class ThrowableObject extends MoveableObject {
     }
 
     animate() {
-        //this.rotateAnimation();
         this.breakAnimation();
         this.throwAnimation();
-        //this.splashAnimation();
     }
 
     throwAnimation() {
@@ -113,73 +111,3 @@ class ThrowableObject extends MoveableObject {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    rotateAnimation() {
-//        setInterval(() => {
-//            if (!this.bottleBroken) {
-//                this.playAnimation(this.IMAGES_THROWN);
-//            }
-//        }, 1000 / 10)   
-//    }
-//    
-//
-//    //splashAnimation() {
-//    //    setInterval(() => {
-//    //        if (this.bottleBroken) {
-//    //        
-//    //        }
-//    //    }, 1000 / 3); 
-//    //}
-//
-//    updateThrowable() {
-//        if (this.throwableObjects[0] && this.throwableObjects[0].y > 450) {
-//            this.bottleBroken = true;
-//            this.breakBottle();
-//            this.speedY = 0;
-//            //console.log("Bottle removed")
-//            //this.throwableObjects.pop();
-//        }
-//    }
-//
-//    breakBottle() {
-//        this.breakStartTime = Date.now();
-//        const breakDuration = 2000;
-//        const elapsedTime = Date.now() - this.breakStartTime;
-//        const phase = elapsedTime / breakDuration;
-//        console.log(phase)
-//        if (phase < 1/6) {
-//            this.setImage(this.IMAGES_SPLASH[0]);
-//        } else if (phase < 2/6) {
-//            this.setImage(this.IMAGES_SPLASH[1]);
-//        } else if (phase < 3/6) {
-//            this.setImage(this.IMAGES_SPLASH[2]);
-//        } else if (phase < 4/6) {
-//            this.setImage(this.IMAGES_SPLASH[3]);
-//        } else if (phase < 4/6) {
-//            this.setImage(this.IMAGES_SPLASH[3]);
-//        } else if (phase <= 1) {
-//            this.setImage(this.IMAGES_SPLASH[3]);
-//        } else {
-//            this.bottleBroken = false;
-//            this.throwableObjects.pop();
-//        }
-//    }
-//
-//}

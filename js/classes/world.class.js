@@ -6,6 +6,8 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    bottleCount = new BottleCounter();
+    coinCounter = new CoinCounter();
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -69,6 +71,8 @@ class World {
 
         // Static Objects
         this.drawToMap(this.statusBar);
+        this.drawToMap(this.bottleCount);
+        this.drawToMap(this.coinCounter);
         let self = this;
         requestAnimationFrame(function() {self.draw();});
     }

@@ -25,6 +25,8 @@ class DrawableObject {
         const cachedImage = this.imageCache[imagePath];
         if (cachedImage) {
             this.img = cachedImage;
+        } else {
+            console.log("Error while loading Image from Image Cache")
         }
     }
 

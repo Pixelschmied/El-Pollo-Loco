@@ -79,14 +79,6 @@ class Character extends MoveableObject {
         this.animate();
     }
 
-    setImage(imagePath) {
-        const cachedImage = this.imageCache[imagePath];
-        if (cachedImage) {
-            this.img = cachedImage;
-        } else {
-            console.error('Bild nicht im Cache gefunden:', imagePath);
-        }
-    }
     
     animate() {
         this.idleAnimation();
@@ -158,15 +150,17 @@ class Character extends MoveableObject {
         }, 1000 / 5);
     }
 
-    deadAnimation() { // TODO: Setup!
+    deadAnimation() { // TODO: Possible Animation Bug (Pictures skipped)
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                if (!this.died) {
-                    this.speedY = 22;
-                    this.died = true;
-                }
-                this.falling();
+                setInterval(() => {
+                    if (!this.died) {
+                        this.speedY = 22;
+                        this.died = true;
+                    }
+                    this.falling();
+                }, 1000 / 8);
             }
         }, 1000 / 3);
     }
@@ -196,8 +190,8 @@ class Character extends MoveableObject {
             this.setImage(this.IMAGES_JUMPING[4]);
 
         } else {
-            this.isJumping = false; // Sprung ist vorbei
-            this.setImage(this.IMAGES_IDLE[0]); // Zurück zur Standbildanimation
+            this.isJumping = false;
+            this.setImage(this.IMAGES_IDLE[0]); 
         }
     }
 }
