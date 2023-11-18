@@ -62,7 +62,7 @@ class Character extends MoveableObject {
     idleStartTime = 0;
     world;
     speed = 10;
-    //walking_sound = new Audio("audio/character/walking.mp3");
+    //walking_sound = new Audio("audio/character/walking.mp3"); // TODO: Switch Sounds on
     life = 100;
     died = false;
     
@@ -98,7 +98,7 @@ class Character extends MoveableObject {
         }, 1000 / 5);
     }
 
-    //longIdleAnimation() {
+    //longIdleAnimation() { // WIP
     //    setInterval(() => {
     //        if (!this.isJumping && !this.isMoving()) {
     //            this.playAnimation(this.IMAGES_IDLE);
@@ -168,14 +168,14 @@ class Character extends MoveableObject {
     jump() {
         if (!this.isJumping) {
             this.isJumping = true;
-            this.jumpStartTime = Date.now(); // Jump-Timer start
-            this.speedY = 22; // set Y-speed for jump
+            this.jumpStartTime = Date.now();
+            this.speedY = 22;
         }
     }
 
 
     jumpAnimationTimer() {
-        const jumpDuration = 1000; // total jump animation duration in ms
+        const jumpDuration = 1000;
         const elapsedTime = Date.now() - this.jumpStartTime;
         const phase = elapsedTime / jumpDuration;
         if (phase < 1/5) {
