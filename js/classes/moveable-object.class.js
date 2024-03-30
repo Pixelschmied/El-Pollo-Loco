@@ -2,27 +2,39 @@ class MoveableObject extends DrawableObject {
     
     speed = 0.15;
     mirrored = false;
-    speedY = 0;
-    acceleration = 1.8;
+    upForce = 0;
+    gravity = 1.8;
     lastHit = 0;
+    groundLevel = 240;
+
+    jump() {
+        this.upForce = 20;
+    }
 
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-            } else if(!this.died) {
-                this.speedY = 0;
-                this.y = 240;
+            if (this.isAboveGround() || this.upForce > 0) {
+                this.y -= this.upForce;
+                this.upForce -= this.gravity;
+                if (this.y >= this.groundLevel && this instanceof Character) {
+                    this.y = this.groundLevel;
+                    this.upForce = 0;
+                }
+            } else if (!this.died) {
+                this.upForce = 0;
+                this.y = this.groundLevel;
             }
         }, 1000 / 30);
     }
+    
+    
+    
 
-    falling() {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
-    }
+    //falling() {
+    //    this.y -= this.upForce;
+    //    this.upForce -= this.gravity;
+    //}
 
     isAboveGround() {
         if (this instanceof ThrowableObject) {
@@ -65,7 +77,7 @@ class MoveableObject extends DrawableObject {
     }    
 
     hit() {
-        this.life -= 1;
+        //this.life -= 1;
         if (this.life < 0) {
             this.life = 0;
         } else {
@@ -75,8 +87,9 @@ class MoveableObject extends DrawableObject {
 
     isHurt() {
         let timeSinceLastHit = new Date().getTime() - this.lastHit;
-        return timeSinceLastHit < 1500;
+        return timeSinceLastHit < 15000;
     }
+    
     isDead() {
         return this.life == 0;
     }    
@@ -87,10 +100,6 @@ class MoveableObject extends DrawableObject {
 
     moveLeft() {
         this.x -= this.speed;
-    }
-    
-    jump() {
-        this.speedY = 20;
     }
 
     

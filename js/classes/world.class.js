@@ -6,14 +6,15 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    alertBorder = new AlertBorder();
     bottleCount = new BottleCounter();
     coinCounter = new CoinCounter();
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
-        this.canvas = canvas; // Speichert den von der init() übergebenen Canvas in der lokalen Variable
-        this.keyboard = keyboard; // Speichert das von der init() übergebenen Keyboard in der lokalen Variable
+        this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.update();
@@ -33,7 +34,7 @@ class World {
     checkThrowableObjects() {
         if (this.keyboard.E && this.throwableObjects.length < 1) {
             let mirrored = this.character.mirrored;
-            let bottle = new ThrowableObject(this.character.x + (this.character.width / 2), this.character.y + (this.character.height / 2), mirrored, this.throwableObjects)
+            let bottle = new ThrowableObject(this.character, this.character.x + (this.character.width / 2), this.character.y + (this.character.height / 2), mirrored, this.throwableObjects)
             this.throwableObjects.push(bottle);
         }
     }
@@ -70,6 +71,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
 
         // Static Objects
+        this.drawToMap(this.alertBorder);
         this.drawToMap(this.statusBar);
         this.drawToMap(this.bottleCount);
         this.drawToMap(this.coinCounter);
@@ -90,7 +92,7 @@ class World {
         }
 
         mo.draw(this.ctx)
-        //mo.drawFrame(this.ctx) // TODO: Frame Function (delete if not needed)
+        mo.drawFrame(this.ctx) // TODO: Frame Function (delete if not needed)
 
         if (mo.mirrored) {
             this.flipImageBack(mo);

@@ -17,10 +17,11 @@ class ThrowableObject extends MoveableObject {
     bottleBroken = false;
     breakStartTime = 0;
 
-    constructor(x, y, mirrored, throwableObjects) {
+    constructor(character, x, y, mirrored, throwableObjects) {
         super().loadImage("img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png");
         this.loadImages(this.IMAGES_THROWN);
         this.loadImages(this.IMAGES_SPLASH);
+        this.character = character;
         this.x = x;
         this.y = y;
         this.mirrored = mirrored;
@@ -34,16 +35,17 @@ class ThrowableObject extends MoveableObject {
 
     throw() {
         if (this.mirrored && !this.bottleBroken) {
-            this.speedY = 25;
+            this.x -= this.character.width / 2;
+            this.upForce = 25;
             setInterval(() => {
                 if (!this.bottleBroken) {
-                    this.x += 6;
+                    this.x += -6;
                 }
                 this.updateThrowable();
             }, 1000 / 60);
         }
         if (!this.mirrored && !this.bottleBroken) {
-            this.speedY = 25;
+            this.upForce = 25;
             setInterval(() => {
                 if (!this.bottleBroken) {
                     this.x += 6;
@@ -105,7 +107,7 @@ class ThrowableObject extends MoveableObject {
         if (this.bottleBroken || this.throwableObjects[0] && this.throwableObjects[0].y > 418) {
             this.bottleBroken = true;
             this.breakBottle();
-            this.speedY = 0;
+            this.upForce = 0;
             //console.log("Bottle removed")
             //this.throwableObjects.pop();
         }

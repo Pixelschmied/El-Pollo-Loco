@@ -5,13 +5,13 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
-    canvas = document.getElementById("canvas"); //Saves HTML ID in "canvas"
-    world = new World(canvas, keyboard); //Create new "World" Obj. 
+    canvas = document.getElementById("canvas");
+    world = new World(canvas, keyboard);
 }
 
 
 window.addEventListener("keydown", (e) => {
-    //console.log(e.keyCode)
+    //console.log(e.keycode)
     if (e.key == "ArrowLeft") {
         keyboard.LEFT = true;
     }
