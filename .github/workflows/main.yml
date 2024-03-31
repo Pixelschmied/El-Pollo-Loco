@@ -1,22 +1,16 @@
-name: Upload complete repo (e.g. website) to a SFTP destination
-
-on: [push]
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  Upload-to-SFTP:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code                     # Checkout the latest code
-        uses: actions/checkout@v2
-
-      - name: 📂 SFTP uploader                       # Upload to SFTP 
-        uses: wangyucode/sftp-upload-action@v2.0.2
-        with:
-          host: ${{ secrets.FPT_SERVER }}                  # Recommended to put the credentials in github secrets.
-          username: ${{ secrets.FPT_USERNAME }}
-          password: ${{ secrets.FPT_PASSWORD }}
-          compress: true                             # Compression
-          forceUpload: true                          # Optional, Force uploading all files, Default to false(upload only newer files).
-          localDir: '.'                              # Required, Absolute or relative to cwd.
-          remoteDir: '/epl'                             # Required, Absolute path only.
-          exclude: '.git*,.DS_Store'                 # Optional. exclude patterns (glob) like .gitignore, use ',' to split, Default to ''.
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
