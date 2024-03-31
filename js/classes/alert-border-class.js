@@ -1,4 +1,4 @@
-class AlertBorder extends DrawableObject {
+class AlertBorder extends MoveableObject {
 
     IMAGES = [
         "img/10_hurt_border/HurtBorder000.png",
@@ -11,7 +11,17 @@ class AlertBorder extends DrawableObject {
         "img/10_hurt_border/HurtBorder070.png",
         "img/10_hurt_border/HurtBorder080.png",
         "img/10_hurt_border/HurtBorder090.png",
-        "img/10_hurt_border/HurtBorder100.png"
+        "img/10_hurt_border/HurtBorder100.png",
+        "img/10_hurt_border/HurtBorder090.png",
+        "img/10_hurt_border/HurtBorder080.png",
+        "img/10_hurt_border/HurtBorder070.png",
+        "img/10_hurt_border/HurtBorder060.png",
+        "img/10_hurt_border/HurtBorder050.png",
+        "img/10_hurt_border/HurtBorder040.png",
+        "img/10_hurt_border/HurtBorder030.png",
+        "img/10_hurt_border/HurtBorder020.png",
+        "img/10_hurt_border/HurtBorder010.png",
+        "img/10_hurt_border/HurtBorder000.png"
     ];
 
 
@@ -23,13 +33,14 @@ class AlertBorder extends DrawableObject {
         this.x = 0;
         this.y = 0;
         this.hurtAlert();
-        //this.img = this.imageCache[this.IMAGES[10]];
     }
 
     hurtAlert() {
         setInterval(() => {
-            if (this.isHurt()) {
+            if (world.character.isHurt()) {
                 this.playAnimation(this.IMAGES);
+            } else {
+                this.setImage("img/10_hurt_border/HurtBorder000.png");
             }
         }, 1000 / 20);
     }
