@@ -42,10 +42,18 @@ class World {
     checkCollisions() {
         // Character Collision with Enemies
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.life);
-                console.log("Character Life: ", this.character.life);
+            if ((this.character.isColliding(enemy) && !this.character.isFalling() && enemy.died == false && this.character.possibleHeadJump == false) || 
+                (this.character.isColliding(enemy) && enemy instanceof Endboss)) {
+                    this.character.hit();
+                    this.statusBar.setPercentage(this.character.life);
+                    //console.log("Character Life: ", this.character.life);
+            }
+        });
+        // Character Headjump Collision with Enemies
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isHeadjumping(enemy) && enemy instanceof Chicken && enemy.died == false && this.character.possibleHeadJump == true) {
+                this.character.upForce = 20;
+                enemy.died = true;
             }
         });
         // Throwable Collision with Enemies
@@ -93,6 +101,9 @@ class World {
 
         mo.draw(this.ctx)
         mo.drawFrame(this.ctx) // TODO: Frame Function (delete if not needed)
+        mo.drawHeadjumpFrame(this.ctx) // TODO: Headjump Frame Function (delete if not needed)
+        mo.debugText(this.ctx) // TODO: Debug Text Function (delete if not needed)
+        //mo.drawXDot(this.ctx) // TODO: Dot Function (delete if not needed)
 
         if (mo.mirrored) {
             this.flipImageBack(mo);

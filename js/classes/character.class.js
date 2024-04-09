@@ -94,7 +94,6 @@ class Character extends MoveableObject {
     speed = 15;
     //walking_sound = new Audio("audio/character/walking.mp3"); // TODO: Switch Sounds on
     life = 100;
-    died = false;
     
 
     constructor() {
@@ -168,7 +167,7 @@ class Character extends MoveableObject {
                 this.playAnimation(this.IMAGES_WALKING);
                 console.log("Move Left")
             }
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.isHurt() && !this.isDead() && !this.isJumping) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.isHurt() && !this.isDead() && !this.isJumping && this.x < 2) {
                 this.playAnimation(this.IMAGES_HURT_WALKING);
                 console.log("Hurt: Move Right")
             }
@@ -176,7 +175,7 @@ class Character extends MoveableObject {
                 this.playAnimation(this.IMAGES_HURT_WALKING);
                 console.log("Hurt: Move Left")
             }
-        }, 1000 / 17);
+        }, 1000 / 20);
     }
 
     jumpAnimation() {

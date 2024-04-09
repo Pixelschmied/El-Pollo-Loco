@@ -6,6 +6,8 @@ class MoveableObject extends DrawableObject {
     gravity = 1.8;
     lastHit = 0;
     groundLevel = 240;
+    possibleHeadJump = false;
+    died = false;
 
     jump() {
         this.upForce = 20;
@@ -14,16 +16,22 @@ class MoveableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
+            if (!this.isFalling() && !this.isAboveGround() && !this.died) {
+                this.possibleHeadJump = false;
+            }
+            if (this.isFalling()) {
+                this.possibleHeadJump = true;
+            }
             if (this.isAboveGround() || this.upForce > 0) {
                 this.y -= this.upForce;
                 this.upForce -= this.gravity;
-                if (this.y >= this.groundLevel && this instanceof Character) {
+                if (this.y >= this.groundLevel && this instanceof Character && !this.died) {
                     this.y = this.groundLevel;
                     this.upForce = 0;
                 }
-            } else if (!this.died) {
-                this.upForce = 0;
-                this.y = this.groundLevel;
+            } else if (this.died) {
+                this.y -= this.upForce;
+                this.upForce -= this.gravity;
             }
         }, 1000 / 30);
     }
@@ -31,10 +39,9 @@ class MoveableObject extends DrawableObject {
     
     
 
-    //falling() {
-    //    this.y -= this.upForce;
-    //    this.upForce -= this.gravity;
-    //}
+    isFalling() {
+        return this.upForce <= 0 && this.y < this.groundLevel;
+    }
 
     isAboveGround() {
         if (this instanceof ThrowableObject) {
@@ -59,25 +66,26 @@ class MoveableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    //isColliding(mo) {
-    //    return this.x + this.width > mo.x &&
-    //        this.y + this.height > mo.y &&
-    //        this.x < mo.x &&
-    //        this.y < mo.y + mo.height
-    //}
-
     isColliding(mo) {
         let thisFrame = this.getObjectCollisionFrame(this);
         let otherFrame = mo.getObjectCollisionFrame(mo);
     
-        return thisFrame.x < otherFrame.x + otherFrame.width &&
-               thisFrame.x + thisFrame.width > otherFrame.x &&
-               thisFrame.y < otherFrame.y + otherFrame.height &&
-               thisFrame.y + thisFrame.height > otherFrame.y;
+        return  thisFrame.x < otherFrame.x + otherFrame.width && thisFrame.x + thisFrame.width > otherFrame.x &&
+                thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
     }    
 
+    isHeadjumping(mo) {
+        if (mo instanceof Chicken) {
+            let thisFrame = this.getObjectHeadjumpCollisionFrame(this);
+            let otherFrame = mo.getObjectHeadjumpCollisionFrame(mo);
+        
+            return  thisFrame.x < otherFrame.x + otherFrame.width && thisFrame.x + thisFrame.width > otherFrame.x &&
+                    thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
+        }
+    }
+
     hit() {
-        //this.life -= 1;
+        //this.life -= 10;
         if (this.life < 0) {
             this.life = 0;
         } else {
@@ -87,7 +95,7 @@ class MoveableObject extends DrawableObject {
 
     isHurt() {
         let timeSinceLastHit = new Date().getTime() - this.lastHit;
-        return timeSinceLastHit < 15000;
+        return timeSinceLastHit < 1500;
     }
     
     isDead() {

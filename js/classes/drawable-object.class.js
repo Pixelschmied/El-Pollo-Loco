@@ -34,11 +34,19 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height) 
     }
 
+    debugText(ctx) {
+        if (this instanceof Character) {
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "red";
+            ctx.fillText(this.x, this.x, 150);
+        }
+    }
+
     getObjectCollisionFrame(object) {
         let rect;
         switch (object.constructor) {
             case Character:
-                rect = { x: object.x + 20, y: object.y + 100, width: object.width - 55, height: object.height - 110};
+                rect = { x: object.x + 23, y: object.y + 100, width: object.width - 61, height: object.height - 110};
                 break;
             case Chicken:
                 rect = { x: object.x + 2, y: object.y + 2, width: object.width - 3, height: object.height - 5 };
@@ -55,12 +63,49 @@ class DrawableObject {
         return rect;
     }
 
+    getObjectHeadjumpCollisionFrame(object) {
+        let rect;
+        switch (object.constructor) {
+            case Character:
+                rect = { x: object.x + 23, y: object.y + 220, width: object.width - 61, height: object.height - 230};
+                break;
+            case Chicken:
+                rect = { x: object.x + 2, y: object.y + 2, width: object.width - 3, height: object.height - 40 };
+                break;
+            default:
+                rect = null;
+        }
+        return rect;
+    }
+
+    //getObjectXYDots(object) {
+    //    let xDot = object.x;
+    //    let yDot = object.y;
+    //    return {xDot, yDot};
+    //}
+    //drawXDot(ctx) {
+    //    let xDot = this.getObjectXYDots(this).xDot;
+    //    let yDot = this.getObjectXYDots(this).yDot;
+    //    ctx.fillRect(xDot, yDot,5,5); // fill in the pixel at (10,10)
+    //}
+
     drawFrame(ctx) { // TODO: Frame Function (delete if not needed)
         let frame = this.getObjectCollisionFrame(this);
         if (frame) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
+            ctx.rect(frame.x, frame.y, frame.width, frame.height);
+            ctx.stroke();
+        }
+    }
+
+    drawHeadjumpFrame(ctx) { // TODO: Frame Function (delete if not needed)
+        let frame = this.getObjectHeadjumpCollisionFrame(this);
+        if (frame) {
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
             ctx.rect(frame.x, frame.y, frame.width, frame.height);
             ctx.stroke();
         }
