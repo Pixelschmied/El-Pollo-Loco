@@ -61,6 +61,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (throwableObject.isColliding(enemy)) {
                     throwableObject.bottleBroken = true;
+                    enemy.died = true;
                 }
             });
         });
