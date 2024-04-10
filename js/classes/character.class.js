@@ -122,7 +122,7 @@ class Character extends MoveableObject {
 
     idleAnimation() {
         setInterval(() => {
-            if (!this.longIdleTimeReached() && !this.isJumping && !this.isMoving() && !this.isHurt() && !this.isDead()) {
+            if (!this.longIdleTimeReached() && !this.isJumping && !this.isMoving() && !this.isHurt() && !this.isDead() || this.x == 0) {
                 this.playAnimation(this.IMAGES_IDLE);
                 console.log("Idle")
             }
