@@ -108,7 +108,6 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
-        console.log(this.height);
     }
 
     
@@ -122,13 +121,11 @@ class Character extends MoveableObject {
 
     idleAnimation() {
         setInterval(() => {
-            if (!this.longIdleTimeReached() && !this.isJumping && !this.isMoving() && !this.isHurt() && !this.isDead() || this.x == 0) {
+            if (!this.longIdleTimeReached() && !this.isJumping && !this.isMoving() && !this.isHurt() && !this.isDead() || this.x == 0 && !this.longIdleTimeReached()) {
                 this.playAnimation(this.IMAGES_IDLE);
-                console.log("Idle")
             }
             if (!this.longIdleTimeReached() && !this.isJumping && !this.isMoving() && this.isHurt() && !this.isDead()) {
                 this.playAnimation(this.IMAGES_HURT_IDLE);
-                console.log("Hurt: Idle")
             }
         }, 1000 / 5);
     }
@@ -137,7 +134,6 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (this.longIdleTimeReached() && !this.isJumping && !this.isMoving() && !this.isHurt() && !this.isDead()) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
-                console.log("Long Idle")
             }
         }, 1000 / 6);
     }
@@ -161,19 +157,15 @@ class Character extends MoveableObject {
             // ANIMATIONS
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isHurt() && !this.isDead() && !this.isJumping) {
                 this.playAnimation(this.IMAGES_WALKING);
-                console.log("Move Right")
             }
             if (this.world.keyboard.LEFT && this.x > 0  && !this.isHurt() && !this.isDead() && !this.isJumping) {
                 this.playAnimation(this.IMAGES_WALKING);
-                console.log("Move Left")
             }
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.isHurt() && !this.isDead() && !this.isJumping && this.x < 2) {
                 this.playAnimation(this.IMAGES_HURT_WALKING);
-                console.log("Hurt: Move Right")
             }
             if (this.world.keyboard.LEFT && this.x > 0  && this.isHurt() && !this.isDead() && !this.isJumping) {
                 this.playAnimation(this.IMAGES_HURT_WALKING);
-                console.log("Hurt: Move Left")
             }
         }, 1000 / 20);
     }
@@ -226,7 +218,6 @@ class Character extends MoveableObject {
         const elapsedTime = Date.now() - this.jumpStartTime;
         const phase = elapsedTime / jumpDuration;
         if (!this.isHurt()) {
-            console.log("Jumping")
             if (phase < 300/1000) {
                 this.setImage(this.IMAGES_JUMPING[0]);
             } else if (phase < 400/1000) {
@@ -243,7 +234,6 @@ class Character extends MoveableObject {
             }
         }
         if (this.isHurt()) {
-            console.log("Hurt: Jumping")
             if (phase < 300/1000) {
                 this.setImage(this.IMAGES_HURT_JUMPING[0]);
             } else if (phase < 400/1000) {

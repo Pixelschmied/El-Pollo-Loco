@@ -46,7 +46,6 @@ class World {
                 (this.character.isColliding(enemy) && enemy instanceof Endboss)) {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.life);
-                    //console.log("Character Life: ", this.character.life);
             }
         });
         // Character Headjump Collision with Enemies
