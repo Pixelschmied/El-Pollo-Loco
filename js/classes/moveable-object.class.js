@@ -1,5 +1,5 @@
 class MoveableObject extends DrawableObject {
-    
+
     speed = 0.15;
     mirrored = false;
     upForce = 0;
@@ -8,6 +8,8 @@ class MoveableObject extends DrawableObject {
     groundLevel = 240;
     possibleHeadJump = false;
     died = false;
+    defaultMovementDirection = true;
+    lastDirectionChange = Date.now();
 
     jump() {
         this.upForce = 20;
@@ -35,9 +37,9 @@ class MoveableObject extends DrawableObject {
             }
         }, 1000 / 30);
     }
-    
-    
-    
+
+
+
 
     isFalling() {
         return this.upForce <= 0 && this.y < this.groundLevel;
@@ -45,18 +47,18 @@ class MoveableObject extends DrawableObject {
 
     isAboveGround() {
         if (this instanceof ThrowableObject) {
-          return true;
+            return true;
         } else {
-          return this.y < 240;
+            return this.y < 240;
         }
-      }
+    }
 
     isMoving() {
         return (this.world.keyboard.LEFT ||
-                this.world.keyboard.RIGHT ||
-                this.world.keyboard.UP ||
-                this.world.keyboard.DOWN ||
-                this.world.keyboard.E)
+            this.world.keyboard.RIGHT ||
+            this.world.keyboard.UP ||
+            this.world.keyboard.DOWN ||
+            this.world.keyboard.E)
     }
 
     playAnimation(images) {
@@ -69,18 +71,18 @@ class MoveableObject extends DrawableObject {
     isColliding(mo) {
         let thisFrame = this.getObjectCollisionFrame(this);
         let otherFrame = mo.getObjectCollisionFrame(mo);
-    
-        return  thisFrame.x < otherFrame.x + otherFrame.width && thisFrame.x + thisFrame.width > otherFrame.x &&
-                thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
-    }    
+
+        return thisFrame.x < otherFrame.x + otherFrame.width && thisFrame.x + thisFrame.width > otherFrame.x &&
+            thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
+    }
 
     isHeadjumping(mo) {
         if (mo instanceof Chicken) {
             let thisFrame = this.getObjectHeadjumpCollisionFrame(this);
             let otherFrame = mo.getObjectHeadjumpCollisionFrame(mo);
-        
-            return  thisFrame.x < otherFrame.x + otherFrame.width && thisFrame.x + thisFrame.width > otherFrame.x &&
-                    thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
+
+            return thisFrame.x < otherFrame.x + otherFrame.width && thisFrame.x + thisFrame.width > otherFrame.x &&
+                thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
         }
     }
 
@@ -97,10 +99,10 @@ class MoveableObject extends DrawableObject {
         let timeSinceLastHit = new Date().getTime() - this.lastHit;
         return timeSinceLastHit < 1500;
     }
-    
+
     isDead() {
         return this.life == 0;
-    }    
+    }
 
     moveRight() {
         this.x += this.speed;
@@ -110,5 +112,30 @@ class MoveableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    
+    randomMove() { // TODO: Dont let Chicken move out of canvas
+        if (this.defaultMovementDirection) {
+            this.mirrored = false;
+            this.moveLeft();
+        } else {
+            this.mirrored = true;
+            this.moveRight();
+        }
+        this.getNewMovementDirection();
+    }
+
+    getNewMovementDirection() {
+        if (this.directionChangerTimeReached()) {
+            this.timeTillDirectionChange = Math.random() * 15000;
+            this.defaultMovementDirection = !this.defaultMovementDirection;
+            this.resetDirectionChangerTime();
+        }
+    }
+
+    resetDirectionChangerTime() {
+        this.lastDirectionChange = Date.now();
+    }
+
+    directionChangerTimeReached() {
+        return Date.now() - this.lastDirectionChange > this.timeTillDirectionChange;
+    }
 }
