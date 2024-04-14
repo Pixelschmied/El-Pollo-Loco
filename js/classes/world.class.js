@@ -8,6 +8,7 @@ class World {
     statusBar = new StatusBar();
     alertBorder = new AlertBorder();
     bottleCount = new BottleCounter();
+    bottleCountDown = Date.now();
     coinCounter = new CoinCounter();
     throwableObjects = [];
 
@@ -32,8 +33,10 @@ class World {
     }
 
     checkThrowableObjects() {
-        if (this.keyboard.E && this.throwableObjects.length < 1) {
+        if (this.keyboard.E && this.throwableObjects.length < 1 && Date.now() - this.bottleCountDown > 1500) {
             let mirrored = this.character.mirrored;
+            this.bottleCountDown = Date.now();
+            this.character.resetIdleStartTime();
             let bottle = new ThrowableObject(this.character, this.character.x + (this.character.width / 2), this.character.y + (this.character.height / 2), mirrored, this.throwableObjects)
             this.throwableObjects.push(bottle);
         }
@@ -50,8 +53,9 @@ class World {
         });
         // Character Headjump Collision with Enemies
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isHeadjumping(enemy) && enemy instanceof Chicken && enemy.died == false && this.character.possibleHeadJump == true) {
-                this.character.upForce = 20;
+            if (this.character.isColliding(enemy) && (enemy instanceof Chicken || enemy instanceof Chick) && enemy.died == false && this.character.possibleHeadJump == true) {
+                this.character.isJumping = false;
+                this.character.jump();
                 enemy.died = true;
             }
         });
@@ -101,8 +105,7 @@ class World {
 
         mo.draw(this.ctx)
         mo.drawFrame(this.ctx) // TODO: Frame Function (delete if not needed)
-        mo.drawHeadjumpFrame(this.ctx) // TODO: Headjump Frame Function (delete if not needed)
-        mo.debugText(this.ctx) // TODO: Debug Text Function (delete if not needed)
+        //mo.debugText(this.ctx) // TODO: Debug Text Function (delete if not needed)
         //mo.drawXDot(this.ctx) // TODO: Dot Function (delete if not needed)
 
         if (mo.mirrored) {
