@@ -6,6 +6,8 @@ class DrawableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
+    bottleCount = 0;
+    coinCount = 0;
 
 
     loadImage(path) {
@@ -26,18 +28,18 @@ class DrawableObject {
         if (cachedImage) {
             this.img = cachedImage;
         } else {
-            console.log("Error while loading Image from Image Cache")
+            console.log('Error while loading Image from Image Cache')
         }
     }
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height) 
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
 
     debugText(ctx) {
         if (this instanceof Character) {
-            ctx.font = "30px Arial";
-            ctx.fillStyle = "red";
+            ctx.font = '30px Arial';
+            ctx.fillStyle = 'red';
             ctx.fillText(this.x, this.x, 150);
         }
     }
@@ -46,13 +48,16 @@ class DrawableObject {
         let rect;
         switch (object.constructor) {
             case Character:
-                rect = { x: object.x + 23, y: object.y + 100, width: object.width - 61, height: object.height - 110};
+                rect = { x: object.x + 23, y: object.y + 100, width: object.width - 61, height: object.height - 110 };
                 break;
             case Chicken:
                 rect = { x: object.x + 2, y: object.y + 2, width: object.width - 3, height: object.height - 5 };
                 break;
+            case Chick:
+                rect = { x: object.x + 7, y: object.y + 5, width: object.width - 12, height: object.height - 10 };
+                break;
             case Endboss:
-                rect = { x: object.x + 40, y: object.y + 95, width: object.width - 80, height: object.height - 110};
+                rect = { x: object.x + 40, y: object.y + 95, width: object.width - 80, height: object.height - 110 };
                 break;
             case ThrowableObject:
                 rect = { x: object.x + 10, y: object.y + 10, width: object.width - 20, height: object.height - 20 };
@@ -63,20 +68,6 @@ class DrawableObject {
         return rect;
     }
 
-    getObjectHeadjumpCollisionFrame(object) {
-        let rect;
-        switch (object.constructor) {
-            case Character:
-                rect = { x: object.x + 23, y: object.y + 220, width: object.width - 61, height: object.height - 230};
-                break;
-            case Chicken:
-                rect = { x: object.x + 2, y: object.y + 2, width: object.width - 3, height: object.height - 40 };
-                break;
-            default:
-                rect = null;
-        }
-        return rect;
-    }
 
     //getObjectXYDots(object) {
     //    let xDot = object.x;
@@ -95,17 +86,6 @@ class DrawableObject {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
-            ctx.rect(frame.x, frame.y, frame.width, frame.height);
-            ctx.stroke();
-        }
-    }
-
-    drawHeadjumpFrame(ctx) { // TODO: Frame Function (delete if not needed)
-        let frame = this.getObjectHeadjumpCollisionFrame(this);
-        if (frame) {
-            ctx.beginPath();
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'red';
             ctx.rect(frame.x, frame.y, frame.width, frame.height);
             ctx.stroke();
         }
