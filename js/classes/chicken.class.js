@@ -1,22 +1,22 @@
 class Chicken extends MoveableObject {
-    y = 425
-    width = 248 / 5
-    height = 248 / 5
+    y = 415
+    width = 248 / 4
+    height = 248 / 4
     IMAGES_WALKING = [
-        "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
-        "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
-        "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
+        'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
+        'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
+        'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
     ];
     IMAGES_DEAD = [
-        "img/3_enemies_chicken/chicken_normal/2_dead/dead.png",
+        'img/3_enemies_chicken/chicken_normal/2_dead/dead.png',
     ];
     timeTillDirectionChange = Math.random() * 10000;
 
     constructor() {
-        super().loadImage("img/3_enemies_chicken/chicken_normal/1_walk/1_w.png")
+        super().loadImage(this.IMAGES_WALKING[0])
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 250 + Math.random() * 500;
+        this.x = 250 + Math.random() * 3800;
         this.animate();
         this.speed = 0.2 + Math.random() * 0.3;
     }
@@ -36,7 +36,7 @@ class Chicken extends MoveableObject {
 
         setInterval(() => {
             if (this.died) {
-                this.loadImage("img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
+                this.loadImage(this.IMAGES_DEAD[0]);
                 if (this.y < 600) {
                     this.y += 2;
                 }
