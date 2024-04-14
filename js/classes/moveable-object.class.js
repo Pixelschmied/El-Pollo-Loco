@@ -76,15 +76,6 @@ class MoveableObject extends DrawableObject {
             thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
     }
 
-    isHeadjumping(mo) {
-        if (mo instanceof Chicken) {
-            let thisFrame = this.getObjectHeadjumpCollisionFrame(this);
-            let otherFrame = mo.getObjectHeadjumpCollisionFrame(mo);
-
-            return thisFrame.x < otherFrame.x + otherFrame.width && thisFrame.x + thisFrame.width > otherFrame.x &&
-                thisFrame.y < otherFrame.y + otherFrame.height && thisFrame.y + thisFrame.height > otherFrame.y;
-        }
-    }
 
     hit() {
         //this.life -= 10;
