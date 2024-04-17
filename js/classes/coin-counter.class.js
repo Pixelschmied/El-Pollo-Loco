@@ -29,8 +29,8 @@ class CoinCounter extends DrawableObject {
         gradient.addColorStop(1.0, 'yellow');
         ctx.fillStyle = gradient;
         ctx.strokeStyle = 'black';
-        ctx.fillText(this.coinCount, this.textX, this.textY);
-        ctx.strokeText(this.coinCount, this.textX, this.textY);
+        ctx.fillText(DrawableObject.coinCount, this.textX, this.textY);
+        ctx.strokeText(DrawableObject.coinCount, this.textX, this.textY);
 
     }
 }
