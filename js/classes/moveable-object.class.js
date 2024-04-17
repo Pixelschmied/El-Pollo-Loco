@@ -5,6 +5,7 @@ class MoveableObject extends DrawableObject {
     upForce = 0;
     gravity = 1.8;
     lastHit = 0;
+    endbossLastHit = 0;
     groundLevel = 240;
     possibleHeadJump = false;
     died = false;
@@ -78,11 +79,12 @@ class MoveableObject extends DrawableObject {
 
 
     hit() {
-        //this.life -= 10;
-        if (this.life < 0) {
-            this.life = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        if (this.isHurt()) {
+            return;
+        }
+        if (!this.isHurt()) {
+            this.lastHit = new Date().getTime(); d
+            Character.life--;
         }
     }
 
@@ -91,8 +93,23 @@ class MoveableObject extends DrawableObject {
         return timeSinceLastHit < 1500;
     }
 
+    endbossHit() { // TODO: Hurt Timer
+        if (this.isHurt()) {
+            return;
+        }
+        if (!this.isHurt()) {
+            this.endbossLastHit = new Date().getTime();
+            Endboss.life--;
+        }
+    }
+
+    endbossIsHurt() {
+        let timeSinceLastHit = new Date().getTime() - this.endbossLastHit;
+        return timeSinceLastHit < 1500;
+    }
+
     isDead() {
-        return this.life == 0;
+        return Character.life <= 0;
     }
 
     moveRight() {
