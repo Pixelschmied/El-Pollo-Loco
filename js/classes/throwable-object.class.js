@@ -17,7 +17,7 @@ class ThrowableObject extends MoveableObject {
     bottleBroken = false;
     breakStartTime = 0;
 
-    constructor(character, x, y, mirrored, throwableObjects) {
+    constructor(character, x, y, mirrored, flyingBottle) {
         super().loadImage(this.IMAGES_THROWN[0]);
         this.loadImages(this.IMAGES_THROWN);
         this.loadImages(this.IMAGES_SPLASH);
@@ -25,7 +25,7 @@ class ThrowableObject extends MoveableObject {
         this.x = x;
         this.y = y;
         this.mirrored = mirrored;
-        this.throwableObjects = throwableObjects;
+        this.flyingBottle = flyingBottle;
         this.height = 400 / 6;
         this.width = 400 / 6;
         this.applyGravity();
@@ -99,17 +99,15 @@ class ThrowableObject extends MoveableObject {
             this.setImage(this.IMAGES_SPLASH[5]);
         } else {
             this.bottleBroken = false;
-            this.throwableObjects.pop();
+            this.flyingBottle.pop();
             this.breakStartTime = null;
         }
     }
     updateThrowable() {
-        if (this.bottleBroken || this.throwableObjects[0] && this.throwableObjects[0].y > 418) {
+        if (this.bottleBroken || this.flyingBottle[0] && this.flyingBottle[0].y > 418) {
             this.bottleBroken = true;
             this.breakBottle();
             this.upForce = 0;
-            //console.log('Bottle removed')
-            //this.throwableObjects.pop();
         }
     }
 }
