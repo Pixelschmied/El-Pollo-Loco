@@ -1,4 +1,4 @@
-const level1 = new Level(10,5,150, 20,
+const level1 = new Level(10,5,5, 20,
     [
         new BackgroundObject('img/5_background/layers/air.png', -959), // Sky Layer
         new BackgroundObject('img/5_background/layers/3_third_layer/2.png', -959), // Third Layer
