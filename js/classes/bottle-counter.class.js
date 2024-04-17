@@ -30,8 +30,8 @@ class BottleCounter extends DrawableObject {
         gradient.addColorStop(1.0, 'yellow');
         ctx.fillStyle = gradient;
         ctx.strokeStyle = 'black';
-        ctx.fillText(this.bottleCount, this.textX, this.textY);
-        ctx.strokeText(this.bottleCount, this.textX, this.textY);
+        ctx.fillText(DrawableObject.bottleCount, this.textX, this.textY);
+        ctx.strokeText(DrawableObject.bottleCount, this.textX, this.textY);
     }
 
 }
