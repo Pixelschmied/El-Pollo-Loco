@@ -93,7 +93,7 @@ class Character extends MoveableObject {
     world;
     speed = 15;
     //walking_sound = new Audio('audio/character/walking.mp3'); // TODO: Switch Sounds on
-    life = 100;
+    static life = 5;
 
 
     constructor() {
