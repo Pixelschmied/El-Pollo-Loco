@@ -6,8 +6,11 @@ class DrawableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
-    bottleCount = 0;
-    coinCount = 0;
+    static coinCount = 0;
+    static lastCoinLocation = 200;
+    static coinsPlaced = 0;
+    static bottleCount = 0;
+    static lastBottleLocation = 200;
 
 
     loadImage(path) {
@@ -61,6 +64,12 @@ class DrawableObject {
                 break;
             case ThrowableObject:
                 rect = { x: object.x + 10, y: object.y + 10, width: object.width - 20, height: object.height - 20 };
+                break;
+            case Bottle:
+                rect = { x: object.x + 30, y: object.y + 12, width: object.width - 55, height: object.height - 20 };
+                break;
+            case Coin:
+                rect = { x: object.x + 65, y: object.y + 65, width: object.width - 130, height: object.height - 130 };
                 break;
             default:
                 rect = null;
