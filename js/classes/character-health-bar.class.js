@@ -17,13 +17,12 @@ class CharacterHealthBar extends DrawableObject {
         this.x = 30;
         this.y = 0;
         this.img = this.imageCache[this.IMAGES[Character.life]]
+        this.update();
     }
 
-    //setPercentage() {
-    //    let path = this.IMAGES[Character.life];
-    //    this.x = 30;
-    //    this.y = 0;
-    //    this.img = this.imageCache[path]
-    //    console.log(Character.life)
-    //}
+    update() {
+        setInterval(() => {
+        this.img = this.imageCache[this.IMAGES[Character.life]];
+        }, 1000 / 30);
+    }
 }

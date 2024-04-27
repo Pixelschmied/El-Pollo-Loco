@@ -3,6 +3,7 @@ let canvasHeight = 540;
 let canvasWidth = 960;
 let world;
 let keyboard = new Keyboard();
+let lockedKeyE = false;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -32,8 +33,12 @@ window.addEventListener('keydown', (e) => {
     if (e.key == ' ') {
         keyboard.UP = true;
     }
-    if (e.key == 'e') {
+    if (e.key == 'e' && !lockedKeyE) {
         keyboard.E = true;
+        lockedKeyE = true;
+        setTimeout(() => {
+            keyboard.E = false;
+        }, 100);
     }
 })
 
@@ -61,5 +66,6 @@ window.addEventListener('keyup', (e) => {
     }
     if (e.key == 'e') {
         keyboard.E = false;
+        lockedKeyE = false;
     }
 })

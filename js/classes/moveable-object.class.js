@@ -83,7 +83,7 @@ class MoveableObject extends DrawableObject {
             return;
         }
         if (!this.isHurt()) {
-            this.lastHit = new Date().getTime(); d
+            this.lastHit = new Date().getTime();
             Character.life--;
         }
     }
@@ -93,11 +93,11 @@ class MoveableObject extends DrawableObject {
         return timeSinceLastHit < 1500;
     }
 
-    endbossHit() { // TODO: Hurt Timer
-        if (this.isHurt()) {
+    endbossHit() {
+        if (this.endbossIsHurt()) {
             return;
         }
-        if (!this.isHurt()) {
+        if (!this.endbossIsHurt()) {
             this.endbossLastHit = new Date().getTime();
             Endboss.life--;
         }

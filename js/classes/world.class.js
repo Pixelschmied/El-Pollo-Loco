@@ -128,7 +128,7 @@ class World {
 
         mo.draw(this.ctx)
         //mo.drawFrame(this.ctx) // TODO: Frame Function (delete if not needed)
-        //mo.debugText(this.ctx) // TODO: Debug Text Function (delete if not needed)
+        mo.debugText(this.ctx) // TODO: Debug Text Function (delete if not needed)
         //mo.drawXDot(this.ctx) // TODO: Dot Function (delete if not needed)
 
         if (mo.mirrored) {

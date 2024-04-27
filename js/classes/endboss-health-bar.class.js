@@ -17,5 +17,16 @@ class EndbossHealthBar extends DrawableObject {
         this.x = 730;
         this.y = 13;
         this.img = this.imageCache[this.IMAGES[Endboss.life]];
+        this.update();
+    }
+
+    update() {
+        setInterval(() => {
+            this.setImage()
+        }, 1000 / 30);
+    }
+
+    setImage() {
+        this.img = this.imageCache[this.IMAGES[Endboss.life]];
     }
 }
