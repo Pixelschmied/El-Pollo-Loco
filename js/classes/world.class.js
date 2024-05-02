@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    level = level1;
+    level = new Level(6,6,10,14,20, new Endboss(this.character));
     canvas;
     ctx;
     keyboard;
