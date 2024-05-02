@@ -3,6 +3,8 @@ class Endboss extends MoveableObject {
     width = 1045 / 5
     height = 1217 / 5
     static life = 5;
+    enraged = false;
+    character;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -30,21 +32,40 @@ class Endboss extends MoveableObject {
         'img/4_enemie_boss_chicken/2_alert/G11.png',
         'img/4_enemie_boss_chicken/2_alert/G12.png'
     ]
-    constructor() {
+    constructor(character) {
         super().loadImage(this.IMAGES_WALKING[0])
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_ALERT);
         this.x = 3800;
+        this.character = character;
         this.animate();
-        this.speed = 0.2 + Math.random() * 0.3;
+        this.enrageCheck();
+        this.speed = 2;
     }
 
     animate() {
-        this.moveLeft();
+        setInterval(() => {
+            if(this.enraged && this.character.x < this.x) {
+                this.moveLeft();
+            }
+            if (this.enraged && this.character.x > this.x) {
+                this.moveRight();
+            }
+        }, 1000 / 60)
+
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_IDLE);
         }, 1000 / 1)
+    }
+
+    enrageCheck() {
+        setInterval(() => {
+            if (this.character.x > 3200) {
+                this.enraged = true;
+                console.log("ENRAGED!");
+            }
+        }, 1000 / 10)    
     }
 }
