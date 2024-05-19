@@ -4,7 +4,12 @@ class Endboss extends MoveableObject {
     height = 1217 / 5
     static life = 5;
     enraged = false;
+    attacking = false;
+    bossStartPosition = 3800;
     character;
+    died = false;
+    bossUpForce = 0;
+    deadAnimationIndex = 0;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -26,9 +31,6 @@ class Endboss extends MoveableObject {
 
     IMAGES_ATTACK = [
         "img/4_enemie_boss_chicken/3_attack/G13.png",
-        "img/4_enemie_boss_chicken/3_attack/G14.png",
-        "img/4_enemie_boss_chicken/3_attack/G15.png",
-        "img/4_enemie_boss_chicken/3_attack/G16.png",
         "img/4_enemie_boss_chicken/3_attack/G17.png",
         "img/4_enemie_boss_chicken/3_attack/G18.png",
         "img/4_enemie_boss_chicken/3_attack/G19.png",
@@ -44,6 +46,11 @@ class Endboss extends MoveableObject {
     IMAGES_DEAD = [
         "img/4_enemie_boss_chicken/5_dead/G24.png",
         "img/4_enemie_boss_chicken/5_dead/G25.png",
+        "img/4_enemie_boss_chicken/5_dead/G26.png",
+        "img/4_enemie_boss_chicken/5_dead/G26.png",
+        "img/4_enemie_boss_chicken/5_dead/G26.png",
+        "img/4_enemie_boss_chicken/5_dead/G26.png",
+        "img/4_enemie_boss_chicken/5_dead/G26.png",
         "img/4_enemie_boss_chicken/5_dead/G26.png"
     ]
 
@@ -54,35 +61,89 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 3800;
+        this.x = this.bossStartPosition;
         this.character = character;
         this.animate();
         this.enrageCheck();
+        this.applyGravity();
         this.speed = 2;
     }
 
     animate() {
         setInterval(() => {
-            if(this.enraged && this.character.x < this.x) {
+            if(this.enraged && this.character.x < this.x && !this.attacking && !this.died) {
+                this.mirrored = false;
                 this.moveLeft();
             }
-            if (this.enraged && this.character.x > this.x) {
+            if (this.enraged && this.character.x > this.x && !this.attacking && !this.died) {
+                this.mirrored = true;
                 this.moveRight();
             }
         }, 1000 / 60)
 
 
         setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT);
-        }, 1000 / 1)
+            if (Endboss.life <= 0 && !this.died) {
+                this.upForce = 17;
+                if (!this.died) {
+                    this.died = true;
+                }
+            }
+            if (this.died) { //Bilder im Photoshop erstellen für Todesanimation
+                this.playAnimation(this.IMAGES_DEAD);
+            }
+            if (Endboss.life >= 1 && this.endbossIsHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
+            if (!this.endbossIsHurt() && this.enraged && !this.attacking && !this.died) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
+            if (!this.endbossIsHurt() && !this.enraged && !this.attacking && !this.died) {
+                this.playAnimation(this.IMAGES_ALERT);
+            }
+            // CHICKEN FOLLOWS PLAYER TO THE RIGHT
+            if ((this.x - this.character.x) < 40 && this.x <= this.character.x && !this.died) {
+                this.attacking = false;
+            }
+            // CHICKEN FOLLOWS PLAYER TO THE LEFT
+            if ((this.character.x - this.x) < 20 && this.x >= this.character.x && !this.died) {
+                this.attacking = false;
+            }
+            // CHICKEN STOPS LEFT MOVEMENT FOR ATTACK
+            if ((this.x - this.character.x) < 50 && this.x > this.character.x && !this.died){
+                this.mirrored = false;
+                this.attacking = true;
+                this.playAnimation(this.IMAGES_ATTACK);
+            }
+            // CHICKEN STOPS RIGHT MOVEMENT FOR ATTACK
+            if ((this.character.x - this.x) < 150 && this.x < this.character.x) {
+                this.mirrored = true;
+                this.attacking = true;
+                this.playAnimation(this.IMAGES_ATTACK);
+            }
+        }, 1000 / 4)
     }
 
     enrageCheck() {
         setInterval(() => {
-            if (this.character.x > 3200) {
+            if (this.character.x > (this.bossStartPosition - 600) && !this.enraged) {
                 this.enraged = true;
-                console.log("ENRAGED!");
             }
         }, 1000 / 10)    
     }
+
+
+    endbossDeadAnimation() {
+        setInterval(() => {
+            if (this.deadAnimationIndex < 2) {
+                console.log("Index: " + this.deadAnimationIndex);
+                this.img = this.IMAGES_DEAD[this.deadAnimationIndex];
+                this.deadAnimationIndex++;
+            }
+            if (this.deadAnimationIndex >= 2) {
+                this.img = this.imageCache[this.IMAGES_DEAD[2]];
+            }
+        }, 1000 / 5);
+    }
+
 }
