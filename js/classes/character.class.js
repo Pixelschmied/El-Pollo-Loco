@@ -84,17 +84,17 @@ class Character extends MoveableObject {
         'img/2_character_pepe/4_dead/D-06.png'
     ]
 
-
     jumpStartTime = 0;
     isJumping = false;
     isIdle = false;
     idleStartTime = Date.now();
     timeTillLongIdle = 7000;
     world;
-    speed = 15;
+    speed = 10;
     //walking_sound = new Audio('audio/character/walking.mp3'); // TODO: Switch Sounds on
     static life = 5;
-
+    targetCameraX = 0;
+    smoothFactor = 0.15;
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-10.png');
@@ -124,7 +124,7 @@ class Character extends MoveableObject {
             if (!this.longIdleTimeReached() && !this.isJumping && !this.isMoving() && !this.isHurt() && !this.isDead()
                 || this.x == 0 && !this.longIdleTimeReached()
                 || this.x == 4200 && !this.longIdleTimeReached()
-                || this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()
+                || !this.isMoving() && this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()
                 || this.world.keyboard.LEFT && this.world.keyboard.RIGHT) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
@@ -160,6 +160,7 @@ class Character extends MoveableObject {
                 this.resetIdleStartTime();
                 //this.walking_sound.play(); // TODO: Switch Sounds on (Maybe Switch to moveLeft() Function?!)
             }
+            
             // ANIMATIONS
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isHurt() && !this.isDead() && !this.isJumping && !this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
@@ -173,11 +174,50 @@ class Character extends MoveableObject {
             if (this.world.keyboard.LEFT && this.x > 0 && this.isHurt() && !this.isDead() && !this.isJumping) {
                 this.playAnimation(this.IMAGES_HURT_WALKING);
             }
-            if (this.x < 3500) {
-                this.world.camera_x = -this.x + 100;
-            }
-        }, 1000 / 20);
+
+            // CAMERA LOCK
+            this.cameraControl();
+        }, 1000 / 30);
     }
+
+    cameraControl() {
+        let cameraTargetX = this.getNewCameraTarget();
+        let distance = cameraTargetX - this.world.cameraX;
+        let step = this.calculateStep(distance);
+        this.updateCameraPosition(distance, step);
+    }
+    
+    getNewCameraTarget() {
+        let cameraTargetX;
+        cameraTargetX = -this.x + 100; // default camera position
+
+    
+        if (this.mirrored && this.world.cameraX * -1 > this.x - 800) {
+            cameraTargetX = -this.x + 760; // camera position when mirrored
+        }
+    
+        // limits the cameraTargetX to the range between -3360 and 0
+        cameraTargetX = Math.max(-3360, Math.min(cameraTargetX, 0));
+    
+        return cameraTargetX;
+    }
+    
+    calculateStep(distance) {
+        let maxStep = 15; // maximum step per frame
+        let absDistance = Math.abs(distance); // absolute value to prevent subpixel-rendering
+        let t = Math.min(absDistance / 100, 1); // linear interpolation between 0 and 1
+        t = t * t * (3 - 2 * t); // smoothstep function
+        return maxStep * t;
+    }
+    
+    updateCameraPosition(distance, step) {
+        this.world.cameraX += Math.sign(distance) * step;
+        this.world.cameraX = Math.round(this.world.cameraX);  // Sicherstellen, dass die Kameraposition immer eine ganze Zahl ist
+    
+        // Begrenzung der Kameraposition auf den Bereich zwischen 0 und 3600 Pixel
+        this.world.cameraX = Math.max(-3360, Math.min(this.world.cameraX, 0));
+    }
+    
 
     jumpAnimation() {
         setInterval(() => {
@@ -223,9 +263,9 @@ class Character extends MoveableObject {
 
 
     jumpAnimationTimer() {
-        const jumpDuration = 1000;
-        const elapsedTime = Date.now() - this.jumpStartTime;
-        const phase = elapsedTime / jumpDuration;
+        let jumpDuration = 1000;
+        let elapsedTime = Date.now() - this.jumpStartTime;
+        let phase = elapsedTime / jumpDuration;
         if (!this.isHurt()) {
             if (phase < 300 / 1000) {
                 this.setImage(this.IMAGES_JUMPING[0]);
