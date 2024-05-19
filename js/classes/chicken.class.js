@@ -19,6 +19,7 @@ class Chicken extends MoveableObject {
         this.x = 250 + Math.random() * 3800;
         this.animate();
         this.speed = 0.2 + Math.random() * 0.3;
+        this.applyGravity();
     }
 
     animate() {
@@ -37,12 +38,16 @@ class Chicken extends MoveableObject {
         setInterval(() => {
             if (this.died) {
                 this.loadImage(this.IMAGES_DEAD[0]);
-                if (this.y < 600) {
-                    this.y += 2;
-                }
             }
         }, 1000 / 60);
     }
 
-
+    applyGravity() {
+        setInterval(() => {
+             if (this.died) {
+                this.y -= this.upForce;
+                this.upForce -= this.gravity;
+            }
+        }, 1000 / 30);
+    }
 }
