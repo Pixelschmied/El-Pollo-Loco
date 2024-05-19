@@ -19,16 +19,16 @@ class MoveableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (!this.isFalling() && !this.isAboveGround() && !this.died) {
+            if (!this.isFalling() && !this.isAboveGround() && !this.died && this instanceof Character) {
                 this.possibleHeadJump = false;
             }
-            if (this.isFalling()) {
+            if (this.isFalling() && this instanceof Character) {
                 this.possibleHeadJump = true;
             }
             if (this.isAboveGround() || this.upForce > 0) {
                 this.y -= this.upForce;
                 this.upForce -= this.gravity;
-                if (this.y >= this.groundLevel && this instanceof Character && !this.died) {
+                if (this.y >= this.groundLevel && (this instanceof Character || this instanceof Endboss) && !this.died) {
                     this.y = this.groundLevel;
                     this.upForce = 0;
                 }
