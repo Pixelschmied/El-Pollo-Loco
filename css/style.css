@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'boogaloo';
+    src: url('assets/fonts/Boogaloo-Regular.ttf');
+}
+
+html {
+    height: 100%;
+    font-family: boogaloo;
+    font-size: 30px;
+}
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('../img/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+canvas {
+    background-color: black;
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 960px) {
+    canvas {
+        width: 100%;
+        border-radius: 0;
+    }
+    #pageTitle {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 540px) {
+    canvas {
+        height: 100vh;
+        border-radius: 0;
+    }
+    #pageTitle {
+        display: none;
+    }
+}
