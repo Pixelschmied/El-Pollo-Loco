@@ -1,7 +1,7 @@
 class World {
   character = new Character();
   //chicken, chicks, bottles, coins, clouds, endboss
-  level = new Level(0, 0, 15, 0, 20, new Endboss(this.character));
+  level = new Level(8, 5, 15, 8, 20, new Endboss(this.character));
   canvas;
   ctx;
   keyboard;
