@@ -25,6 +25,21 @@ canvas {
     border-radius: 20px;
 }
 
+#hud {
+    width: 960px;
+}
+
+#touchBtns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.touchBtn {
+    height: 100px;
+    width: 100px;
+}
+
 @media only screen and (max-width: 960px) {
     canvas {
         width: 100%;
