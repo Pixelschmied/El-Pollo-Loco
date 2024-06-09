@@ -191,9 +191,9 @@ class Character extends MoveableObject {
         let cameraTargetX;
         cameraTargetX = -this.x + 100; // default camera position
 
-    
-        if (this.mirrored && this.world.cameraX * -1 > this.x - 800) {
-            cameraTargetX = -this.x + 760; // camera position when mirrored
+        //focuses the camera on the endboss location
+        if (world.character.x > world.level.enemies[world.level.enemies.length -1].x) {
+            cameraTargetX = -this.x + 760; // 
         }
     
         // limits the cameraTargetX to the range between -3360 and 0

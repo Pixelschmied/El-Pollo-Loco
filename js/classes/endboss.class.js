@@ -3,6 +3,7 @@ class Endboss extends MoveableObject {
     width = 1045 / 5
     height = 1217 / 5
     static life = 5;
+    static x;
     enraged = false;
     attacking = false;
     bossStartPosition = 3800;

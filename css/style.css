@@ -1,61 +1,137 @@
 @font-face {
     font-family: 'boogaloo';
-    src: url('assets/fonts/Boogaloo-Regular.ttf');
+    src: url('../assets/fonts/Boogaloo-Regular.ttf');
+}
+
+.displayNone {
+    display: none !important;
 }
 
 html {
-    height: 100%;
     font-family: boogaloo;
     font-size: 30px;
 }
 body {
-    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
     background-image: url('../img/background.png');
-    height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+#canvasOverlay {
+    position: absolute;
+    display: flex;
+    background-color: #994409;
+}
+
 canvas {
-    background-color: black;
     border-radius: 20px;
 }
 
+
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0;
+}
+
+#rotateNoteContainer {
+    display: none;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#rotateIcon {
+    height: 50px;
+    width: 50px;
+}
+
 #hud {
-    width: 960px;
+    display: none;
+    bottom: 0;
 }
 
 #touchBtns {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 100vw;
+    height: 100%;
+    background-color: #994409;
+}
+
+.btnsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+
 }
 
 .touchBtn {
-    height: 100px;
-    width: 100px;
+    height: 60px;
+    width: 60px;
 }
 
+
+/* Portrait */
 @media only screen and (max-width: 960px) {
-    canvas {
+    #gameContainer {
+        display: none;
         width: 100%;
+    }
+    #pageTitle {
+        display: none;
+    }
+    #rotateNoteContainer {
+        display: flex;
+    }
+}
+
+
+/* Landscape */
+@media only screen and (max-height: 540px) {
+    canvas {
+        position: absolute;
+        top: 0;
+        height: 80lvh;
+        width: 100lvw;
+        border-radius: 0;
+    }
+
+    #canvasOverlay {
+        z-index: 1000;
+        position: absolute;
+        top: 0;
+        height: 80lvh;
+        width: 100lvw;
+        border-radius: 0;
+    }
+
+    #gameContainer {
+        display: flex;
+        height: 100lvh;
+        width: 100lvw;
         border-radius: 0;
     }
     #pageTitle {
         display: none;
     }
-}
-
-@media only screen and (max-height: 540px) {
-    canvas {
-        height: 100vh;
-        border-radius: 0;
+    #hud {
+        display: block;
+        position: absolute;
+        height: 20lvh;
     }
-    #pageTitle {
+
+    #rotateNoteContainer {
         display: none;
     }
 }

@@ -29,21 +29,32 @@
 <body onload='init()'>
 
     <h1 id="pageTitle">EL POLLO LOCO</h1>
-
-    <canvas id='canvas' width='960' height='540'></canvas>
-    <div id="hud">
-        <div id="touchBtns">
-            <div>
-                <img id="leftBtn" class="touchBtn" src="img/11_touch_control/btnLeft.png"></img>
-                <img id="rightBtn" class="touchBtn" src="img/11_touch_control/btnRight.png"></img>
+    <div id="rotateNoteContainer">
+        <img id="rotateIcon" src="../img/rotate-black.png" alt="Rotate-Icon">
+        <p>Please rotate your Device!</p>
+    </div>
     
+    <div id="gameContainer">
+        <div id="canvasContainer">
+            <div id="canvasOverlay" class="displayNone">
+
             </div>
-            <div>
-                <img id="jumpBtn" class="touchBtn" src="img/11_touch_control/btnJump.png"></img>
-                <img id="throwBtn" class="touchBtn" src="img/11_touch_control/btnThrow.png"></img>
+            <canvas id='canvas' width='960' height='540'></canvas>
+        </div>
+        <div id="hud">
+            <div id="touchBtns">
+                <div class="btnsContainer">
+                    <img id="leftBtn" class="touchBtn" src="img/11_touch_control/btnLeft.png"></img>
+                    <img id="rightBtn" class="touchBtn" src="img/11_touch_control/btnRight.png"></img>
+                </div>
+                <div class="btnsContainer">
+                    <img id="jumpBtn" class="touchBtn" src="img/11_touch_control/btnJump.png"></img>
+                    <img id="throwBtn" class="touchBtn" src="img/11_touch_control/btnThrow.png"></img>
+                </div>
             </div>
         </div>
     </div>
+    
     
 </body>
 </html>
