@@ -3,7 +3,7 @@
     src: url('../assets/fonts/Boogaloo-Regular.ttf');
 }
 
-.displayNone {
+.dNone {
     display: none !important;
 }
 
@@ -11,6 +11,7 @@ html {
     font-family: boogaloo;
     font-size: 30px;
 }
+
 body {
     display: flex;
     flex-direction: column;
@@ -24,12 +25,100 @@ body {
     background-size: cover;
 }
 
-#canvasOverlay {
-    position: absolute;
-    display: flex;
-    background-color: #994409;
+#canvasContainer {
+    position: relative;
 }
 
+#canvasOverlay {
+    z-index: 1000;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #000000;
+    z-index: 1000;
+    top: 0;
+    height: 540px;
+    width: 960px;
+    border-radius: 20px;
+}
+
+#canvasOverlay img {
+    position: absolute;
+    height: 540px;
+    width: 960px;
+    border-radius: 20px;
+}
+
+#uiBtnBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#leftUiBtn {
+    padding-left: 20px;
+}
+
+#rightUiBtn {
+    padding-right: 20px;
+}
+
+.button {
+    z-index: 2000;
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #ffdb05 0, #ff9a00 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #994409;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: boogaloo;
+    height: 60px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 25px;
+    padding-right: 25px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 35px;
+    top: 20px;
+  }
+
+  #infoBtn.button {
+    background-image: radial-gradient(100% 100% at 100% 0, #cce6ff 0, #2897ff 100%) !important;
+    color: #ffffff;
+  }
+  
+  .button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .button:active {
+    transform: translateY(2px);
+  }
+
+  #infoBtn.button:active {
+    transform: translateY(2px);
+  }
+
+  #gearIcon {
+    height: 32px !important;
+    width: 32px !important;
+  }
 canvas {
     border-radius: 20px;
 }
@@ -38,6 +127,7 @@ canvas {
 #gameContainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     border-radius: 0;
 }
@@ -108,8 +198,6 @@ canvas {
     }
 
     #canvasOverlay {
-        z-index: 1000;
-        position: absolute;
         top: 0;
         height: 80lvh;
         width: 100lvw;
