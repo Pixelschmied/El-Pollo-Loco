@@ -5,6 +5,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>El Pollo Loco</title>
     <link rel='stylesheet' href='css/style.css'>
+    <script src="js/templates.js"></script>
+    <script src="js/script.js"></script>
     <script src='js/classes/drawable-object.class.js'></script>
     <script src='js/classes/moveable-object.class.js'></script>
     <script src='js/classes/character-health-bar.class.js'></script>
@@ -37,20 +39,7 @@
     <div id="gameContainer">
         <div id="canvasContainer">
             <div id="canvasOverlay">
-                <div id="uiBtnBox">
-                    <div id="leftUiBtn">
-                        <div>
-                            <button class="button" role="button">PLAY</button>
-                        </div>
-                        <div class="button" role="button">
-                            <img id="gearIcon" src="img/icons/smallgear.png" alt="">
-                        </div>
-                    </div>
-                    <div id="rightUiBtn">
-                        <button class="button" id="infoBtn" role="button">INFO</button>
-                    </div>
-                    <img src="img/9_intro_outro_screens/start/startscreen_2.png" alt="">
-                </div>
+                <!-- Game Menu Overlays will be generated here -->
             </div>
             <canvas id='canvas' width='960' height='540'></canvas>
         </div>

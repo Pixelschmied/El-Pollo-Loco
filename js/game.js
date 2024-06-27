@@ -5,7 +5,7 @@ let world;
 let keyboard = new Keyboard();
 let lockedKeyE = false;
 
-function init() {
+function initGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     addTouchListeners();
