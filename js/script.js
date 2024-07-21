@@ -97,12 +97,18 @@ function showMainMenu() {
  * Toggle the sound on and off.
  */
 function toggleSound() {
-    const speakerIcon = document.getElementById('speakerIcon');
+    let speakerIcon = document.getElementById('speakerIcon');
     playButtonClickSound(true);
     if (soundMuted) {
-        enableSound(speakerIcon);
+        backgroundMusic.play();
+        speakerIcon.src = 'assets/images/hud/speakerOn.png';
+        soundMuted = false;
+        localStorage.setItem('soundMuted', JSON.stringify(soundMuted));
     } else {
-        disableSound(speakerIcon);
+        backgroundMusic.pause();
+        speakerIcon.src = 'assets/images/hud/speakerOff.png';
+        soundMuted = true;
+        localStorage.setItem('soundMuted', JSON.stringify(soundMuted));
     }
 }
 

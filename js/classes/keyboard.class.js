@@ -11,6 +11,6 @@ class Keyboard {
      * Create a keyboard instance.
      */
     constructor() {
-        // Initial state of the keys
+        
     }
 }

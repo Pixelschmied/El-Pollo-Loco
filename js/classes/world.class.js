@@ -4,7 +4,7 @@
 class World {
   character = new Character();
   gameStarted = false;
-  level = new Level(8, 5, 15, 8, 20, new Endboss(this.character)); // chicken, chicks, bottles, coins, clouds, endboss
+  level = new Level(8, 5, 15, 8, 20, new Endboss(this.character));
   canvas;
   ctx;
   keyboard;
@@ -17,7 +17,6 @@ class World {
   bottleCountDown = Date.now();
   lastBottleBroke = Date.now();
   bottlePickupSound = new Audio('assets/audio/bottle.mp3');
-  bottleBreakSound = new Audio('assets/audio/bottleBreak.mp3');
   coinCounter = new CoinCounter();
   coinPickupSound = new Audio('assets/audio/coin.mp3');
   throwableObjects = [];

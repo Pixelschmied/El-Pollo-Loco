@@ -7,30 +7,30 @@ class Level {
     bottles = [];
     coins = [];
     backgroundObjects = [
-        new BackgroundObject('assets/images/background/air.png', -959), // Sky Layer
-        new BackgroundObject('assets/images/background/thirdLayer2.png', -959), // Third Layer
-        new BackgroundObject('assets/images/background/secondLayer2.png', -959), // Second Layer
-        new BackgroundObject('assets/images/background/firstLayer2.png', -959), // First Layer
-        new BackgroundObject('assets/images/background/air.png', 0), // Sky Layer
-        new BackgroundObject('assets/images/background/thirdLayer1.png', 0), // Third Layer
-        new BackgroundObject('assets/images/background/secondLayer1.png', 0), // Second Layer
-        new BackgroundObject('assets/images/background/firstLayer1.png', 0), // First Layer
-        new BackgroundObject('assets/images/background/air.png', 959), // Sky Layer
-        new BackgroundObject('assets/images/background/thirdLayer2.png', 959), // Third Layer
-        new BackgroundObject('assets/images/background/secondLayer2.png', 959), // Second Layer
-        new BackgroundObject('assets/images/background/firstLayer2.png', 959), // First Layer
-        new BackgroundObject('assets/images/background/air.png', 959 * 2), // Sky Layer
-        new BackgroundObject('assets/images/background/thirdLayer1.png', 959 * 2), // Third Layer
-        new BackgroundObject('assets/images/background/secondLayer1.png', 959 * 2), // Second Layer
-        new BackgroundObject('assets/images/background/firstLayer1.png', 959 * 2), // First Layer
-        new BackgroundObject('assets/images/background/air.png', 959 * 3), // Sky Layer
-        new BackgroundObject('assets/images/background/thirdLayer2.png', 959 * 3), // Third Layer
-        new BackgroundObject('assets/images/background/secondLayer2.png', 959 * 3), // Second Layer
-        new BackgroundObject('assets/images/background/firstLayer2.png', 959 * 3), // First Layer
-        new BackgroundObject('assets/images/background/air.png', 959 * 4), // Sky Layer
-        new BackgroundObject('assets/images/background/thirdLayer1.png', 959 * 4), // Third Layer
-        new BackgroundObject('assets/images/background/secondLayer1.png', 959 * 4), // Second Layer
-        new BackgroundObject('assets/images/background/firstLayer1.png', 959 * 4) // First Layer
+        new BackgroundObject('assets/images/background/air.png', -959),
+        new BackgroundObject('assets/images/background/thirdLayer2.png', -959),
+        new BackgroundObject('assets/images/background/secondLayer2.png', -959),
+        new BackgroundObject('assets/images/background/firstLayer2.png', -959),
+        new BackgroundObject('assets/images/background/air.png', 0),
+        new BackgroundObject('assets/images/background/thirdLayer1.png', 0),
+        new BackgroundObject('assets/images/background/secondLayer1.png', 0),
+        new BackgroundObject('assets/images/background/firstLayer1.png', 0),
+        new BackgroundObject('assets/images/background/air.png', 959), 
+        new BackgroundObject('assets/images/background/thirdLayer2.png', 959),
+        new BackgroundObject('assets/images/background/secondLayer2.png', 959),
+        new BackgroundObject('assets/images/background/firstLayer2.png', 959),
+        new BackgroundObject('assets/images/background/air.png', 959 * 2), 
+        new BackgroundObject('assets/images/background/thirdLayer1.png', 959 * 2),
+        new BackgroundObject('assets/images/background/secondLayer1.png', 959 * 2),
+        new BackgroundObject('assets/images/background/firstLayer1.png', 959 * 2),
+        new BackgroundObject('assets/images/background/air.png', 959 * 3), 
+        new BackgroundObject('assets/images/background/thirdLayer2.png', 959 * 3),
+        new BackgroundObject('assets/images/background/secondLayer2.png', 959 * 3),
+        new BackgroundObject('assets/images/background/firstLayer2.png', 959 * 3),
+        new BackgroundObject('assets/images/background/air.png', 959 * 4), 
+        new BackgroundObject('assets/images/background/thirdLayer1.png', 959 * 4),
+        new BackgroundObject('assets/images/background/secondLayer1.png', 959 * 4),
+        new BackgroundObject('assets/images/background/firstLayer1.png', 959 * 4)
     ];
     levelEndX = 4200;
 

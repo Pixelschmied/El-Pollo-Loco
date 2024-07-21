@@ -15,7 +15,7 @@ class MoveableObject extends DrawableObject {
     defaultMovementDirection = true;
     lastDirectionChange = Date.now();
     lastAnimationUpdate = 0;
-    animationInterval = 100; // Zeit in Millisekunden zwischen Animations-Frames
+    animationInterval = 100;
 
     soundsHurt = [
         'assets/audio/hurt1.wav',
@@ -194,7 +194,7 @@ class MoveableObject extends DrawableObject {
     /**
      * Move the object randomly.
      */
-    randomMove() { // TODO: Dont let Chicken move out of canvas
+    randomMove() {
         if (this.defaultMovementDirection) {
             this.mirrored = false;
             this.moveLeft();

@@ -3,24 +3,25 @@
  * @extends MoveableObject
  */
 class ThrowableObject extends MoveableObject {
-    imagesThrown = [
+
+    IMAGES_THROWN = [
         'assets/images/bottle/bottleRotation1.png',
         'assets/images/bottle/bottleRotation2.png',
         'assets/images/bottle/bottleRotation3.png',
         'assets/images/bottle/bottleRotation4.png'
     ];
-    imagesSplash = [
+    IMAGES_SPLASH = [
         'assets/images/bottle/bottleSplash1.png',
         'assets/images/bottle/bottleSplash2.png',
         'assets/images/bottle/bottleSplash3.png',
         'assets/images/bottle/bottleSplash4.png',
         'assets/images/bottle/bottleSplash5.png',
         'assets/images/bottle/bottleSplash6.png'
-    ]
+    ];
     bottleBroken = false;
     breakStartTime = 0;
-    bottleBreakSound = new Audio('assets/audio/bottleBreak.mp3')
-    bottleThrowSound = new Audio('assets/audio/throw.mp3')
+    bottleBreakSound = new Audio('assets/audio/bottleBreak.mp3');
+    bottleThrowSound = new Audio('assets/audio/throw.mp3');
 
     throwInterval;
     throwAnimationInterval;
@@ -28,16 +29,16 @@ class ThrowableObject extends MoveableObject {
 
     /**
      * Create a throwable object.
-     * @param {Character} character - The character throwing the object.
-     * @param {number} x - The initial x-coordinate.
-     * @param {number} y - The initial y-coordinate.
+     * @param {Character} character - The character who throws the object.
+     * @param {number} x - The x-coordinate of the object.
+     * @param {number} y - The y-coordinate of the object.
      * @param {boolean} mirrored - Whether the object is mirrored.
      * @param {Array} flyingBottle - The array of flying bottles.
      */
     constructor(character, x, y, mirrored, flyingBottle) {
-        super().loadImage(this.imagesThrown[0]);
-        this.loadImages(this.imagesThrown);
-        this.loadImages(this.imagesSplash);
+        super().loadImage(this.IMAGES_THROWN[0]);
+        this.loadImages(this.IMAGES_THROWN);
+        this.loadImages(this.IMAGES_SPLASH);
         this.character = character;
         this.x = x;
         this.y = y;
@@ -83,7 +84,6 @@ class ThrowableObject extends MoveableObject {
                 if (this.y >= 425 && !this.bottleBroken) {
                     this.y = 425;
                     this.bottleBroken = true;
-                    this.breakBottle();
                 }
             } else if (this.bottleBroken) {
                 this.y -= this.upForce;
@@ -108,7 +108,7 @@ class ThrowableObject extends MoveableObject {
     
         this.throwAnimationInterval = setInterval(() => {
             if (!this.bottleBroken) {
-                this.playAnimation(this.imagesThrown);
+                this.playAnimation(this.IMAGES_THROWN);
             }
         }, 1000 / 10);
     }
@@ -117,9 +117,9 @@ class ThrowableObject extends MoveableObject {
      * Handle the break animation.
      */
     breakAnimation() {
-        if (this.breakAnimationInterval) clearInterval(this.breakAnimationInterval); // clear any existing interval
+        if (this.breakAnimationInterval) clearInterval(this.breakAnimationInterval);
     
-        this.breakAnimationInterval = setInterval(() => { // store interval ID
+        this.breakAnimationInterval = setInterval(() => {
             if (this.bottleBroken) {
                 this.breakBottle();
             }
@@ -127,7 +127,7 @@ class ThrowableObject extends MoveableObject {
     }
 
     /**
-     * Break the bottle.
+     * Break the bottle and handle the splash animation.
      */
     breakBottle() {
         this.bottleCollisionSound();
@@ -140,29 +140,29 @@ class ThrowableObject extends MoveableObject {
         const phase = elapsedTime / breakDuration;
     
         if (phase < 1/6) {
-            this.setImage(this.imagesSplash[0]);
+            this.setImage(this.IMAGES_SPLASH[0]);
         } else if (phase < 2/6) {
-            this.setImage(this.imagesSplash[1]);
+            this.setImage(this.IMAGES_SPLASH[1]);
         } else if (phase < 3/6) {
-            this.setImage(this.imagesSplash[2]);
+            this.setImage(this.IMAGES_SPLASH[2]);
         } else if (phase < 4/6) {
-            this.setImage(this.imagesSplash[3]);
+            this.setImage(this.IMAGES_SPLASH[3]);
         } else if (phase < 5/6) {
-            this.setImage(this.imagesSplash[4]);
+            this.setImage(this.IMAGES_SPLASH[4]);
         } else if (phase <= 1) {
-            this.setImage(this.imagesSplash[5]);
+            this.setImage(this.IMAGES_SPLASH[5]);
         } else {
             this.bottleBroken = false;
-            clearInterval(this.throwInterval); // clear the throw interval
-            clearInterval(this.breakAnimationInterval); // clear the break animation interval
-            clearInterval(this.throwAnimationInterval); // clear the throw animation interval
+            clearInterval(this.throwInterval);
+            clearInterval(this.breakAnimationInterval);
+            clearInterval(this.throwAnimationInterval);
             this.flyingBottle.pop();
             this.breakStartTime = null;
         }
     }
 
     /**
-     * Update the throwable object state.
+     * Update the throwable object.
      */
     updateThrowable() {
         if (this.bottleBroken || this.flyingBottle[0] && this.flyingBottle[0].y > 418) {

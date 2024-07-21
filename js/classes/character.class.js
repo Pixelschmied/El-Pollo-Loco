@@ -7,104 +7,17 @@ class Character extends MoveableObject {
     width = 610 / 5;
     height = 1200 / 5;
 
-    imagesIdle = [
-        'assets/images/character/characterIdle1.png',
-        'assets/images/character/characterIdle2.png',
-        'assets/images/character/characterIdle3.png',
-        'assets/images/character/characterIdle4.png',
-        'assets/images/character/characterIdle5.png',
-        'assets/images/character/characterIdle6.png',
-        'assets/images/character/characterIdle7.png',
-        'assets/images/character/characterIdle8.png',
-        'assets/images/character/characterIdle9.png',
-        'assets/images/character/characterIdle10.png'
-    ];
-
-    imagesLongIdle = [
-        'assets/images/character/characterIdleLong1.png',
-        'assets/images/character/characterIdleLong2.png',
-        'assets/images/character/characterIdleLong3.png',
-        'assets/images/character/characterIdleLong4.png',
-        'assets/images/character/characterIdleLong5.png',
-        'assets/images/character/characterIdleLong6.png',
-        'assets/images/character/characterIdleLong7.png',
-        'assets/images/character/characterIdleLong8.png',
-        'assets/images/character/characterIdleLong9.png',
-        'assets/images/character/characterIdleLong10.png'
-    ];
-
-    imagesHurtIdle = [
-        'assets/images/character/characterIdleHurt1.png',
-        'assets/images/character/characterIdleHurt2.png',
-        'assets/images/character/characterIdleHurt3.png',
-        'assets/images/character/characterIdleHurt4.png',
-        'assets/images/character/characterIdleHurt5.png',
-        'assets/images/character/characterIdleHurt6.png',
-        'assets/images/character/characterIdleHurt7.png',
-        'assets/images/character/characterIdleHurt8.png',
-        'assets/images/character/characterIdleHurt9.png',
-        'assets/images/character/characterIdleHurt10.png'
-    ];
-
-    imagesWalking = [
-        'assets/images/character/characterWalk1.png',
-        'assets/images/character/characterWalk2.png',
-        'assets/images/character/characterWalk3.png',
-        'assets/images/character/characterWalk4.png',
-        'assets/images/character/characterWalk5.png',
-        'assets/images/character/characterWalk6.png'
-    ];
-
-    imagesHurtWalking = [
-        'assets/images/character/characterWalkHurt1.png',
-        'assets/images/character/characterWalkHurt2.png',
-        'assets/images/character/characterWalkHurt3.png',
-        'assets/images/character/characterWalkHurt4.png',
-        'assets/images/character/characterWalkHurt5.png',
-        'assets/images/character/characterWalkHurt6.png'
-    ];
-
-    imagesJumping = [
-        'assets/images/character/characterJump1.png',
-        'assets/images/character/characterJump2.png',
-        'assets/images/character/characterJump3.png',
-        'assets/images/character/characterJump4.png',
-        'assets/images/character/characterJump5.png'
-    ];
-
-    imagesHurtJumping = [
-        'assets/images/character/characterJumpHurt1.png',
-        'assets/images/character/characterJumpHurt2.png',
-        'assets/images/character/characterJumpHurt3.png',
-        'assets/images/character/characterJumpHurt4.png',
-        'assets/images/character/characterJumpHurt5.png'
-    ];
-
-    imagesDead = [
-        'assets/images/character/characerDead1.png',
-        'assets/images/character/characerDead2.png',
-        'assets/images/character/characerDead3.png',
-        'assets/images/character/characerDead4.png',
-        'assets/images/character/characerDead5.png',
-        'assets/images/character/characerDead6.png'
-    ];
-
-    soundsJump = [
-        'assets/audio/jump1.wav',
-        'assets/audio/jump2.wav',
-        'assets/audio/jump3.wav',
-        'assets/audio/jump4.wav',
-        'assets/audio/jump5.wav'
-    ];
-
-    soundsWalk = [
-        'assets/audio/steps1.wav',
-        'assets/audio/steps2.wav',
-        'assets/audio/steps3.wav',
-        'assets/audio/steps4.wav',
-        'assets/audio/steps5.wav'
-    ];
-
+    imagesIdle = ['assets/images/character/characterIdle1.png', 'assets/images/character/characterIdle2.png', 'assets/images/character/characterIdle3.png', 'assets/images/character/characterIdle4.png', 'assets/images/character/characterIdle5.png', 'assets/images/character/characterIdle6.png', 'assets/images/character/characterIdle7.png', 'assets/images/character/characterIdle8.png', 'assets/images/character/characterIdle9.png', 'assets/images/character/characterIdle10.png'];
+    imagesLongIdle = ['assets/images/character/characterIdleLong1.png', 'assets/images/character/characterIdleLong2.png', 'assets/images/character/characterIdleLong3.png', 'assets/images/character/characterIdleLong4.png', 'assets/images/character/characterIdleLong5.png', 'assets/images/character/characterIdleLong6.png', 'assets/images/character/characterIdleLong7.png', 'assets/images/character/characterIdleLong8.png', 'assets/images/character/characterIdleLong9.png', 'assets/images/character/characterIdleLong10.png'];
+    imagesHurtIdle = ['assets/images/character/characterIdleHurt1.png', 'assets/images/character/characterIdleHurt2.png', 'assets/images/character/characterIdleHurt3.png', 'assets/images/character/characterIdleHurt4.png', 'assets/images/character/characterIdleHurt5.png', 'assets/images/character/characterIdleHurt6.png', 'assets/images/character/characterIdleHurt7.png', 'assets/images/character/characterIdleHurt8.png', 'assets/images/character/characterIdleHurt9.png', 'assets/images/character/characterIdleHurt10.png'];
+    imagesWalking = ['assets/images/character/characterWalk1.png', 'assets/images/character/characterWalk2.png', 'assets/images/character/characterWalk3.png', 'assets/images/character/characterWalk4.png', 'assets/images/character/characterWalk5.png', 'assets/images/character/characterWalk6.png'];
+    imagesHurtWalking = ['assets/images/character/characterWalkHurt1.png', 'assets/images/character/characterWalkHurt2.png', 'assets/images/character/characterWalkHurt3.png', 'assets/images/character/characterWalkHurt4.png', 'assets/images/character/characterWalkHurt5.png', 'assets/images/character/characterWalkHurt6.png'];
+    imagesJumping = ['assets/images/character/characterJump1.png', 'assets/images/character/characterJump2.png', 'assets/images/character/characterJump3.png', 'assets/images/character/characterJump4.png', 'assets/images/character/characterJump5.png'];
+    imagesHurtJumping = ['assets/images/character/characterJumpHurt1.png', 'assets/images/character/characterJumpHurt2.png', 'assets/images/character/characterJumpHurt3.png', 'assets/images/character/characterJumpHurt4.png', 'assets/images/character/characterJumpHurt5.png'];
+    imagesDead = ['assets/images/character/characerDead1.png', 'assets/images/character/characerDead2.png', 'assets/images/character/characerDead3.png', 'assets/images/character/characerDead4.png', 'assets/images/character/characerDead5.png', 'assets/images/character/characerDead6.png'];
+    soundsJump = ['assets/audio/jump1.wav', 'assets/audio/jump2.wav', 'assets/audio/jump3.wav', 'assets/audio/jump4.wav', 'assets/audio/jump5.wav'];
+    soundsWalk = ['assets/audio/steps1.wav', 'assets/audio/steps2.wav', 'assets/audio/steps3.wav', 'assets/audio/steps4.wav', 'assets/audio/steps5.wav'];
+    
     jumpStartTime = 0;
     isJumping = false;
     isIdle = false;
@@ -116,7 +29,7 @@ class Character extends MoveableObject {
     targetCameraX = 0;
     smoothFactor = 0.15;
     lastWalkSoundUpdate = 0;
-    walkSoundInterval = 300; // Zeit in Millisekunden zwischen Sounds
+    walkSoundInterval = 300; 
 
     /**
      * Create a character.
