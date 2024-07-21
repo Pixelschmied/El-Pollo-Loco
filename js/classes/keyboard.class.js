@@ -1,6 +1,16 @@
+/**
+ * Class representing the keyboard state.
+ */
 class Keyboard {
-    LEFT = false;
-    RIGHT = false;
-    UP = false;
-    E = false;
+    left = false;
+    right = false;
+    up = false;
+    e = false;
+
+    /**
+     * Create a keyboard instance.
+     */
+    constructor() {
+        // Initial state of the keys
+    }
 }

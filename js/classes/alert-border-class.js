@@ -1,48 +1,60 @@
+/**
+ * Class representing an alert border.
+ * @extends MoveableObject
+ */
 class AlertBorder extends MoveableObject {
-
-    IMAGES = [
-        'img/10_hurt_border/HurtBorder000.png',
-        'img/10_hurt_border/HurtBorder010.png',
-        'img/10_hurt_border/HurtBorder020.png',
-        'img/10_hurt_border/HurtBorder030.png',
-        'img/10_hurt_border/HurtBorder040.png',
-        'img/10_hurt_border/HurtBorder050.png',
-        'img/10_hurt_border/HurtBorder060.png',
-        'img/10_hurt_border/HurtBorder070.png',
-        'img/10_hurt_border/HurtBorder080.png',
-        'img/10_hurt_border/HurtBorder090.png',
-        'img/10_hurt_border/HurtBorder100.png',
-        'img/10_hurt_border/HurtBorder090.png',
-        'img/10_hurt_border/HurtBorder080.png',
-        'img/10_hurt_border/HurtBorder070.png',
-        'img/10_hurt_border/HurtBorder060.png',
-        'img/10_hurt_border/HurtBorder050.png',
-        'img/10_hurt_border/HurtBorder040.png',
-        'img/10_hurt_border/HurtBorder030.png',
-        'img/10_hurt_border/HurtBorder020.png',
-        'img/10_hurt_border/HurtBorder010.png',
-        'img/10_hurt_border/HurtBorder000.png'
+    images = [
+        'assets/images/hud/hurtBorder/hurtBorder000.png',
+        'assets/images/hud/hurtBorder/hurtBorder010.png',
+        'assets/images/hud/hurtBorder/hurtBorder020.png',
+        'assets/images/hud/hurtBorder/hurtBorder030.png',
+        'assets/images/hud/hurtBorder/hurtBorder040.png',
+        'assets/images/hud/hurtBorder/hurtBorder050.png',
+        'assets/images/hud/hurtBorder/hurtBorder060.png',
+        'assets/images/hud/hurtBorder/hurtBorder070.png',
+        'assets/images/hud/hurtBorder/hurtBorder080.png',
+        'assets/images/hud/hurtBorder/hurtBorder090.png',
+        'assets/images/hud/hurtBorder/hurtBorder100.png',
+        'assets/images/hud/hurtBorder/hurtBorder090.png',
+        'assets/images/hud/hurtBorder/hurtBorder080.png',
+        'assets/images/hud/hurtBorder/hurtBorder070.png',
+        'assets/images/hud/hurtBorder/hurtBorder060.png',
+        'assets/images/hud/hurtBorder/hurtBorder050.png',
+        'assets/images/hud/hurtBorder/hurtBorder040.png',
+        'assets/images/hud/hurtBorder/hurtBorder030.png',
+        'assets/images/hud/hurtBorder/hurtBorder020.png',
+        'assets/images/hud/hurtBorder/hurtBorder010.png',
+        'assets/images/hud/hurtBorder/hurtBorder000.png'
     ];
 
-
+    /**
+     * Create an alert border.
+     */
     constructor() {
-        super().loadImage(this.IMAGES[0]);
-        this.loadImages(this.IMAGES);
-        this.width = 960;;
+        super().loadImage(this.images[0]);
+        this.loadImages(this.images);
+        this.width = 960;
         this.height = 540;
         this.x = 0;
         this.y = 0;
-        this.hurtAlert();
+        this.startHurtAlert();
     }
 
-    hurtAlert() {
-        setInterval(() => {
-            if (world.character.isHurt()) {
-                this.playAnimation(this.IMAGES);
-            } else {
-                this.setImage(this.IMAGES[0]);
-            }
-        }, 1000 / 20);
+    /**
+     * Start the hurt alert interval.
+     */
+    startHurtAlert() {
+        setInterval(() => this.updateHurtAlert(), 1000 / 20);
     }
 
+    /**
+     * Update the hurt alert state.
+     */
+    updateHurtAlert() {
+        if (world.character.isHurt()) {
+            this.playAnimation(this.images);
+        } else {
+            this.setImage(this.images[0]);
+        }
+    }
 }

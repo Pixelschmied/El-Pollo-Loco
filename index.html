@@ -5,6 +5,14 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>El Pollo Loco</title>
     <link rel='stylesheet' href='css/style.css'>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <script src="js/templates.js"></script>
     <script src="js/script.js"></script>
     <script src='js/classes/drawable-object.class.js'></script>
@@ -29,10 +37,13 @@
     <script src='js/game.js'></script>
 </head>
 <body onload='init()'>
-
-    <h1 id="pageTitle">EL POLLO LOCO</h1>
+    <div id="titleContainer">
+        <h1 id="titleShadow" aria-hidden="true">EL POLLO LOCO</h1>
+        <h1 id="pageTitle">EL POLLO LOCO</h1>
+    </div>
+    
     <div id="rotateNoteContainer">
-        <img id="rotateIcon" src="../img/rotate-black.png" alt="Rotate-Icon">
+        <img id="rotateIcon" src="assets/images/hud/rotateIcon.png" alt="Rotate-Icon">
         <p>Please rotate your Device!</p>
     </div>
     
@@ -40,23 +51,22 @@
         <div id="canvasContainer">
             <div id="canvasOverlay">
                 <!-- Game Menu Overlays will be generated here -->
-            </div>
+            </div>   
             <canvas id='canvas' width='960' height='540'></canvas>
-        </div>
-        <div id="hud">
+            <div id="hud">
             <div id="touchBtns">
                 <div class="btnsContainer">
-                    <img id="leftBtn" class="touchBtn" src="img/11_touch_control/btnLeft.png"></img>
-                    <img id="rightBtn" class="touchBtn" src="img/11_touch_control/btnRight.png"></img>
+                    <img id="leftBtn" class="touchBtn" src="assets/images/hud/btnLeft.png"></img>
+                    <img id="rightBtn" class="touchBtn" src="assets/images/hud/btnRight.png"></img>
                 </div>
                 <div class="btnsContainer">
-                    <img id="jumpBtn" class="touchBtn" src="img/11_touch_control/btnJump.png"></img>
-                    <img id="throwBtn" class="touchBtn" src="img/11_touch_control/btnThrow.png"></img>
+                    <img id="jumpBtn" class="touchBtn" src="assets/images/hud/btnJump.png"></img>
+                    <img id="throwBtn" class="touchBtn" src="assets/images/hud/btnThrow.png"></img>
                 </div>
             </div>
         </div>
+        </div>
+        
     </div>
-    
-    
 </body>
 </html>

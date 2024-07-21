@@ -1,6 +1,9 @@
 @font-face {
-    font-family: 'boogaloo';
-    src: url('../assets/fonts/Boogaloo-Regular.ttf');
+    font-family: 'Boogaloo';
+    src: url('../assets/fonts/Boogaloo-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 * {
@@ -25,10 +28,27 @@ body {
     margin: 0;
     height: 100vh;
     width: 100vw;
-    background-image: url('../img/background.png');
+    background-image: url('../assets/images/hud/background.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: 'Boogaloo', sans-serif;
+}
+
+#titleContainer {
+    position: relative;
+    display: inline-block;
+}
+
+#titleShadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 100px;
+    font-weight: bold;
+    z-index: -1;
+    text-shadow: 3px 1px 1px #994409;
+    letter-spacing: 3px;
 }
 
 #pageTitle {
@@ -38,6 +58,22 @@ body {
     background: linear-gradient(to top, #FF9A00 0%, #FFDB05 40%, #FFDB05 60%, #FF9A00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+}
+
+#loseOverlay, #winOverlay {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+#loseTitleContainer, #winTitleContainer {
+    position: relative;
+    display: inline-block;
 }
 
 #canvasContainer {
@@ -50,11 +86,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     z-index: 1000;
     top: 0;
     height: 540px;
     width: 960px;
     border-radius: 20px;
+    
 }
 
 #canvasOverlay img {
@@ -64,26 +102,29 @@ body {
     border-radius: 20px;
 }
 
+#loader {
+    z-index: 2;
+    width: 50%;
+    background-color: #ddd;
+    margin-bottom: 20px;
+    border: #994409 solid 2px;
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#progress-bar {
+    width: 0;
+    height: 30px;
+    background: linear-gradient(to top, #FF9A00 0%, #FFDB05 40%, #FFDB05 60%, #FF9A00 100%);
+}
+
 #introOverlay {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #settingsOverlay {
     display: flex;
@@ -93,16 +134,14 @@ body {
     height: 100%;
 }
 
-
-
 #overlayFilter {
     z-index: 1000;
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #535353;
     border-radius: 20px;
-    filter: opacity(0.8);
+    background-color: #000000;
+    filter: opacity(0.5);
 }
 
 #backBtnMenu {
@@ -156,8 +195,6 @@ body {
     font-size: 20px;
 }
 
-
-
 .spacebarKeyCap {
     width: 200px;
 }
@@ -170,29 +207,22 @@ body {
 }
 
 .keyAction {
-    margin-left: auto !important;
     color: #ff9a00;
+    text-shadow: 2px 2px 2px #994409;
+    min-width: 175px;
 }
 
 .keySeperator {
     font-size: 25px;
     margin:0 10px;
     color: #ff9a00;
+    text-shadow: 2px 2px 2px #994409;
 }
-
-
-
-
-
 
 #leftUiBtn {
     display: flex;
     padding-left: 20px;
     gap: 10px;
-}
-
-#rightUiBtn {
-    padding-right: 20px;
 }
 
 .button {
@@ -201,7 +231,7 @@ body {
     appearance: none;
     background-image: radial-gradient(100% 100% at 100% 0, #ffdb05 0, #ff9a00 100%);
     border: 0;
-    border-radius: 6px;
+    border-radius: 15px;
     box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
     box-sizing: border-box;
     color: #994409;
@@ -261,7 +291,6 @@ canvas {
     border-radius: 20px;
 }
 
-
 #gameContainer {
     display: flex;
     flex-direction: column;
@@ -319,6 +348,11 @@ canvas {
     #pageTitle {
         display: none;
     }
+
+    #titleShadow {
+        display: none;
+    }
+
     #rotateNoteContainer {
         display: flex;
     }
@@ -335,11 +369,31 @@ canvas {
         border-radius: 0;
     }
 
+    #canvasContainer {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+    }
+
     #canvasOverlay {
         top: 0;
         height: 80lvh;
         width: 100lvw;
         border-radius: 0;
+    }
+
+    #canvasOverlay img {
+        max-height: 100vh !important;
+        max-width: 100% !important;
+    }
+    
+    div#hud {
+        border: 0 !important;
+        height: 21vh;
     }
 
     #gameContainer {
@@ -348,9 +402,15 @@ canvas {
         width: 100lvw;
         border-radius: 0;
     }
+    
     #pageTitle {
         display: none;
     }
+
+    #titleShadow {
+        display: none;
+    }
+
     #hud {
         display: block;
         position: absolute;

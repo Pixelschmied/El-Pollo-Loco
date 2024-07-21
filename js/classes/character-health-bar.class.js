@@ -1,28 +1,43 @@
+/**
+ * Class representing a character health bar.
+ * @extends DrawableObject
+ */
 class CharacterHealthBar extends DrawableObject {
 
-    IMAGES = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
+    images = [
+        'assets/images/statusbars/healthbar000.png',
+        'assets/images/statusbars/healthbar020.png',
+        'assets/images/statusbars/healthbar040.png',
+        'assets/images/statusbars/healthbar060.png',
+        'assets/images/statusbars/healthbar080.png',
+        'assets/images/statusbars/healthbar100.png'
     ];
 
+    /**
+     * Create a character health bar.
+     */
     constructor() {
         super();
-        this.loadImages(this.IMAGES);
+        this.loadImages(this.images);
         this.width = 595 / 3;
         this.height = 158 / 3;
         this.x = 30;
         this.y = 0;
-        this.img = this.imageCache[this.IMAGES[Character.life]]
-        this.update();
+        this.img = this.imageCache[this.images[Character.life]];
+        this.startUpdating();
     }
 
-    update() {
-        setInterval(() => {
-        this.img = this.imageCache[this.IMAGES[Character.life]];
-        }, 1000 / 30);
+    /**
+     * Start the interval to update the health bar image.
+     */
+    startUpdating() {
+        setInterval(() => this.updateImage(), 1000 / 30);
+    }
+
+    /**
+     * Update the health bar image based on the character's life.
+     */
+    updateImage() {
+        this.img = this.imageCache[this.images[Character.life]];
     }
 }

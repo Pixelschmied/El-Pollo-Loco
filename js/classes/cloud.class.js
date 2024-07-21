@@ -1,24 +1,27 @@
+/**
+ * Class representing a cloud.
+ * @extends MoveableObject
+ */
 class Cloud extends MoveableObject {
-
     y = 0;
     width = 1920 / 3;
     height = 1080 / 3;
 
+    /**
+     * Create a cloud.
+     */
     constructor() {
-        super().loadImage('img/5_background/layers/4_clouds/1.png');
-
+        super().loadImage('assets/images/background/clouds.png');
         this.x = Math.random() * 15000;
         this.y = Math.random() * 80;
-        this.animate();
         this.speed = 0.1 + Math.random() * 0.5;
+        this.animate();
     }
 
+    /**
+     * Animate the cloud by moving it to the left.
+     */
     animate() {
-            setInterval(() => {
-                this.moveLeft();
-            }, 1000 / 60);
-        }
-        
-        
-
+        setInterval(() => this.moveLeft(), 1000 / 60);
+    }
 }

@@ -1,3 +1,6 @@
+/**
+ * Class representing a drawable object.
+ */
 class DrawableObject {
     x = 120;
     y = 250;
@@ -12,12 +15,19 @@ class DrawableObject {
     static bottleCount = 0;
     static lastBottleLocation = 200;
 
-
+    /**
+     * Load an image.
+     * @param {string} path - The path to the image.
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
+    /**
+     * Load multiple images.
+     * @param {string[]} arr - Array of image paths.
+     */
     loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();
@@ -26,19 +36,29 @@ class DrawableObject {
         });
     }
 
+    /**
+     * Set the current image.
+     * @param {string} imagePath - The path to the image.
+     */
     setImage(imagePath) {
         const cachedImage = this.imageCache[imagePath];
         if (cachedImage) {
             this.img = cachedImage;
-        } else {
-            console.log('Error while loading Image from Image Cache')
         }
     }
 
+    /**
+     * Draw the object on the canvas.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * Display debug text for the object.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     debugText(ctx) {
         if (this instanceof Character) {
             ctx.font = '30px Arial';
@@ -47,6 +67,11 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Get the collision frame for the object.
+     * @param {MoveableObject} object - The object to get the collision frame for.
+     * @returns {Object|null} The collision frame.
+     */
     getObjectCollisionFrame(object) {
         let rect;
         switch (object.constructor) {
@@ -77,19 +102,11 @@ class DrawableObject {
         return rect;
     }
 
-
-    //getObjectXYDots(object) {
-    //    let xDot = object.x;
-    //    let yDot = object.y;
-    //    return {xDot, yDot};
-    //}
-    //drawXDot(ctx) {
-    //    let xDot = this.getObjectXYDots(this).xDot;
-    //    let yDot = this.getObjectXYDots(this).yDot;
-    //    ctx.fillRect(xDot, yDot,5,5); // fill in the pixel at (10,10)
-    //}
-
-    drawFrame(ctx) { // TODO: Frame Function (delete if not needed)
+    /**
+     * Draw the collision frame for the object.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
+    drawFrame(ctx) {
         let frame = this.getObjectCollisionFrame(this);
         if (frame) {
             ctx.beginPath();
